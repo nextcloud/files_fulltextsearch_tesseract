@@ -1,0 +1,15 @@
+{
+  "name": "nextcloud/files_fulltextsearch_tesseract-ocr",
+  "description": "Files - Fulltextsearch - Tesseract OCR",
+  "minimum-stability": "stable",
+  "license": "agpl",
+  "authors": [
+    {
+      "name": "Maxence Lange",
+      "email": "maxence@artificial-owl.com"
+    }
+  ],
+  "require": {
+    "thiagoalessio/tesseract_ocr": "2.4.0"
+  }
+}
