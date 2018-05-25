@@ -29,9 +29,9 @@ namespace OCA\Files_FullTextSearch_Tesseract\Service;
 
 use Exception;
 use OC\Files\View;
-use OCA\Files_FullTextSearch\Exceptions\FileNotFoundException;
 use OCP\AppFramework\IAppContainer;
 use OCP\Files\File;
+use OCP\Files\NotFoundException;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 
 class TesseractService {
@@ -59,17 +59,63 @@ class TesseractService {
 
 
 	/**
+	 * @param string $mimeType
+	 * @param string $extension
+	 *
+	 * @return bool
+	 */
+	public function parsedMimeType($mimeType, $extension) {
+		$ocrMimes = [
+			'image/png',
+			'image/jpeg',
+			'image/tiff',
+			'image/vnd.djvu'
+		];
+
+		foreach ($ocrMimes as $mime) {
+			if (strpos($mimeType, $mime) === 0) {
+				return true;
+			}
+		}
+
+		if ($mimeType === 'application/octet-stream') {
+			return $this->parsedExtension($extension);
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * @param string $extension
+	 *
+	 * @return bool
+	 */
+	private function parsedExtension($extension) {
+		$ocrExtensions = [
+//					'djvu'
+		];
+
+		if (in_array($extension, $ocrExtensions)) {
+			return true;
+		}
+
+		return false;
+	}
+
+
+	/**
 	 * @param $file
 	 *
 	 * @return string
-	 * @throws FileNotFoundException
+	 * @throws NotFoundException
 	 */
 	public function ocrFile(File $file) {
 
 		try {
 			$path = $this->getAbsolutePath($file);
 		} catch (Exception $e) {
-			throw new FileNotFoundException('file not found');
+			throw new NotFoundException('file not found');
 		}
 
 		$ocr = new TesseractOCR($path);
