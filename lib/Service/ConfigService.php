@@ -37,7 +37,7 @@ class ConfigService {
 	const TESSERACT_LANG = 'tesseract_lang';
 
 	public $defaults = [
-		self::TESSERACT_PSM => '2',
+		self::TESSERACT_PSM => '4',
 		self::TESSERACT_LANG => 'eng'
 	];
 
