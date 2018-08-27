@@ -164,6 +164,7 @@ class TesseractService {
 		$ocr->psm($this->configService->getAppValue(ConfigService::TESSERACT_PSM));
 		$lang = explode(',', $this->configService->getAppValue(ConfigService::TESSERACT_LANG));
 		call_user_func_array([$ocr, 'lang'], array_map('trim', $lang));
+		$ocr->command .= ' 2> /dev/null';
 		$result = $ocr->run();
 
 		return $result;
