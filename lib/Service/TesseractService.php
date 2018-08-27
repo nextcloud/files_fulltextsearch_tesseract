@@ -30,7 +30,6 @@ namespace OCA\Files_FullTextSearch_Tesseract\Service;
 use Exception;
 use OC\Files\View;
 use OCA\Files_FullTextSearch\Model\FilesDocument;
-use OCA\FullTextSearch\Model\SearchRequest;
 use OCP\Files\File;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
