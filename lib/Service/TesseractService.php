@@ -30,6 +30,7 @@ namespace OCA\Files_FullTextSearch_Tesseract\Service;
 use Exception;
 use OC\Files\View;
 use OCA\Files_FullTextSearch\Model\FilesDocument;
+use OCA\FullTextSearch\Model\SearchRequest;
 use OCP\Files\File;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
@@ -87,6 +88,9 @@ class TesseractService {
 	}
 
 
+	/**
+	 * @param GenericEvent $e
+	 */
 	public function onFileIndexing(GenericEvent $e) {
 		/** @var Node $file */
 		$file = $e->getArgument('file');
@@ -99,6 +103,19 @@ class TesseractService {
 		$document = $e->getArgument('document');
 
 		$this->extractContentUsingTesseractOCR($document, $file);
+	}
+
+
+	/**
+	 * @param GenericEvent $e
+	 */
+	public function onSearchRequest(GenericEvent $e) {
+//		/** @var SearchRequest $request */
+//		$request = $e->getArgument('request');
+//		$meta = $request->getOption('meta', []);
+//		foreach ($meta as $m) {
+//			$request->addMetaTag($m);
+//		}
 	}
 
 
@@ -118,7 +135,7 @@ class TesseractService {
 				return;
 			}
 
-			// How to set options so that the index can be reset if admin settings are changed
+			// TODO: How to set options so that the index can be reset if admin settings are changed
 			//	$this->configService->setDocumentIndexOption($document, ConfigService::FILES_OCR);
 
 			$content = $this->ocrFile($file);
@@ -136,7 +153,7 @@ class TesseractService {
 	 * @return string
 	 * @throws NotFoundException
 	 */
-	public function ocrFile(File $file) {
+	private function ocrFile(File $file) {
 
 		try {
 			$path = $this->getAbsolutePath($file);

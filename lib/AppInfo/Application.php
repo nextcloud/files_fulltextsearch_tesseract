@@ -28,6 +28,7 @@ namespace OCA\Files_FullTextSearch_Tesseract\AppInfo;
 
 use OCA\Files_FullTextSearch_Tesseract\Service\TesseractService;
 use OCP\AppFramework\App;
+use OCP\AppFramework\QueryException;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 class Application extends App {
@@ -40,7 +41,7 @@ class Application extends App {
 	/**
 	 * @param array $params
 	 *
-	 * @throws \OCP\AppFramework\QueryException
+	 * @throws QueryException
 	 */
 	public function __construct(array $params = []) {
 		parent::__construct(self::APP_NAME, $params);
@@ -60,6 +61,12 @@ class Application extends App {
 			'\OCA\Files_FullTextSearch::onFileIndexing',
 			function(GenericEvent $e) {
 				$this->tesseractService->onFileIndexing($e);
+			}
+		);
+		$eventDispatcher->addListener(
+			'\OCA\Files_FullTextSearch::onSearchRequest',
+			function(GenericEvent $e) {
+				$this->tesseractService->onSearchRequest($e);
 			}
 		);
 	}
