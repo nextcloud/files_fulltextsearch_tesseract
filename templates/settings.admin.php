@@ -33,11 +33,22 @@ Util::addScript(Application::APP_NAME, 'admin');
 
 ?>
 
-<div id="files_ocr-tesseract" class="section subprovider" style="display: none;">
+<div id="files_ocr-tesseract" class="section">
 	<h2><?php p($l->t('Files - Tesseract OCR')) ?></h2>
 
 	<div class="div-table">
 		<div class="div-table-row">
+			<div class="div-table-col div-table-col-left">
+				<span class="leftcol">Enable OCR:</span>
+				<br/>
+				<em>OCR your document with <i>Tesseract</i>.</em>
+			</div>
+			<div class="div-table-col">
+				<input type="checkbox" id="tesseract_ocr" value="1"/>
+			</div>
+		</div>
+
+		<div class="div-table-row tesseract_ocr_enabled">
 			<div class="div-table-col div-table-col-left">
 				<span class="leftcol">Page Segmentation Method</span>
 				<br/>
@@ -49,7 +60,7 @@ Util::addScript(Application::APP_NAME, 'admin');
 			</div>
 		</div>
 
-		<div class="div-table-row">
+		<div class="div-table-row tesseract_ocr_enabled">
 			<div class="div-table-col div-table-col-left">
 				<span class="leftcol">Languages</span>
 				<br/>

@@ -109,17 +109,17 @@ class TesseractService {
 	private function extractContentUsingTesseractOCR(FilesDocument &$document, File $file) {
 
 		try {
+			if ($this->configService->getAppValue(ConfigService::TESSERACT_ENABLED) !== '1') {
+				return;
+			}
+
 			$extension = pathinfo($document->getPath(), PATHINFO_EXTENSION);
 			if (!$this->parsedMimeType($document->getMimetype(), $extension)) {
 				return;
 			}
-//
-//			$this->configService->setDocumentIndexOption($document, ConfigService::FILES_OCR);
-//			if (!$this->isSourceIndexable($document)) {
-//				return;
-//			}
-//
 
+			// How to set options so that the index can be reset if admin settings are changed
+			//	$this->configService->setDocumentIndexOption($document, ConfigService::FILES_OCR);
 
 			$content = $this->ocrFile($file);
 		} catch (Exception $e) {

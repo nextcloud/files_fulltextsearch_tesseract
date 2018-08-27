@@ -46,16 +46,28 @@ var fts_tesseract_settings = {
 
 
 	updateSettingPage: function (result) {
+		fts_tesseract_elements.tesseract_ocr.prop('checked', (result.tesseract_enabled === '1'));
 		fts_tesseract_elements.tesseract_psm.val(result.tesseract_psm);
 		fts_tesseract_elements.tesseract_lang.val(result.tesseract_lang);
 
 		fts_admin_settings.tagSettingsAsSaved(fts_tesseract_elements.tesseract_div);
+
+		if (result.tesseract_enabled === '1') {
+			fts_tesseract_elements.tesseract_div.find('.tesseract_ocr_enabled').fadeTo(300, 1);
+			fts_tesseract_elements.tesseract_div.find('.tesseract_ocr_enabled').find('*').prop(
+				'disabled', false);
+		} else {
+			fts_tesseract_elements.tesseract_div.find('.tesseract_ocr_enabled').fadeTo(300, 0.6);
+			fts_tesseract_elements.tesseract_div.find('.tesseract_ocr_enabled').find('*').prop(
+				'disabled', true);
+		}
 	},
 
 
 	saveSettings: function () {
 
 		var data = {
+			tesseract_enabled: (fts_tesseract_elements.tesseract_ocr.is(':checked')) ? 1 : 0,
 			tesseract_psm: fts_tesseract_elements.tesseract_psm.val(),
 			tesseract_lang: fts_tesseract_elements.tesseract_lang.val()
 		};
