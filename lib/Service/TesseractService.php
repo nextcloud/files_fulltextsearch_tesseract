@@ -29,9 +29,11 @@ namespace OCA\Files_FullTextSearch_Tesseract\Service;
 
 use Exception;
 use OC\Files\View;
-use OCP\AppFramework\IAppContainer;
+use OCA\Files_FullTextSearch\Model\FilesDocument;
 use OCP\Files\File;
+use OCP\Files\Node;
 use OCP\Files\NotFoundException;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 
 class TesseractService {
@@ -46,12 +48,11 @@ class TesseractService {
 	/**
 	 * BookmarksService constructor.
 	 *
-	 * @param IAppContainer $container
 	 * @param ConfigService $configService
 	 * @param MiscService $miscService
 	 */
 	public function __construct(
-		IAppContainer $container, ConfigService $configService, MiscService $miscService
+		ConfigService $configService, MiscService $miscService
 	) {
 		$this->configService = $configService;
 		$this->miscService = $miscService;
@@ -86,21 +87,46 @@ class TesseractService {
 	}
 
 
-	/**
-	 * @param string $extension
-	 *
-	 * @return bool
-	 */
-	private function parsedExtension($extension) {
-		$ocrExtensions = [
-//					'djvu'
-		];
+	public function onFileIndexing(GenericEvent $e) {
+		/** @var Node $file */
+		$file = $e->getArgument('file');
 
-		if (in_array($extension, $ocrExtensions)) {
-			return true;
+		if (!$file instanceof File) {
+			return;
 		}
 
-		return false;
+		/** @var FilesDocument $document */
+		$document = $e->getArgument('document');
+
+		$this->extractContentUsingTesseractOCR($document, $file);
+	}
+
+
+	/**
+	 * @param FilesDocument $document
+	 * @param File $file
+	 */
+	private function extractContentUsingTesseractOCR(FilesDocument &$document, File $file) {
+
+		try {
+			$extension = pathinfo($document->getPath(), PATHINFO_EXTENSION);
+			if (!$this->parsedMimeType($document->getMimetype(), $extension)) {
+				return;
+			}
+//
+//			$this->configService->setDocumentIndexOption($document, ConfigService::FILES_OCR);
+//			if (!$this->isSourceIndexable($document)) {
+//				return;
+//			}
+//
+
+
+			$content = $this->ocrFile($file);
+		} catch (Exception $e) {
+			return;
+		}
+
+		$document->setContent(base64_encode($content), FilesDocument::ENCODED_BASE64);
 	}
 
 
@@ -125,6 +151,24 @@ class TesseractService {
 		$result = $ocr->run();
 
 		return $result;
+	}
+
+
+	/**
+	 * @param string $extension
+	 *
+	 * @return bool
+	 */
+	private function parsedExtension($extension) {
+		$ocrExtensions = [
+//					'djvu'
+		];
+
+		if (in_array($extension, $ocrExtensions)) {
+			return true;
+		}
+
+		return false;
 	}
 
 

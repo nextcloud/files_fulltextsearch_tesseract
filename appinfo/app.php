@@ -28,5 +28,8 @@ namespace OCA\Files_FullTextSearch_Tesseract\AppInfo;
 
 require_once __DIR__ . '/autoload.php';
 
-new Application();
+$app = new Application();
+$app->registerFilesExtension();
+
+
 
