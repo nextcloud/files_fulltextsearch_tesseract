@@ -9,28 +9,26 @@ package_name=$(app_name)
 cert_dir=$(HOME)/.nextcloud/certificates
 github_account=daita
 codecov_token_dir=$(HOME)/.nextcloud/codecov_token
-version+=0.99.0
+version+=0.99.1
 
 all: appstore
 
-release: appstore create-tag
+release: appstore github-release github-upload
 
-autorelease: release
-   github-release release \
-                  --user $(github_account) \
-                  --repo $(app_name) \
-                  --tag v$(version) \
-                  --name "$(app_name) v$(version)"
-   github-release upload \
-                  --user $(github_account) \
-                  --repo $(app_name) \
-                  --tag v$(version) \
-                  --name "$(app_name)-$(version)" \
-                  --file $(build_dir)/$(app_name)-$(version).tar.gz
+github-release:
+	github-release release \
+		--user $(github_account) \
+		--repo $(app_name) \
+		--tag v$(version) \
+		--name "$(app_name) v$(version)"
 
-create-tag:
-	git tag -s -a v$(version) -m "Tagging the $(version) release."
-	git push origin v$(version)
+github-upload:
+	github-release upload \
+		--user $(github_account) \
+		--repo $(app_name) \
+		--tag v$(version) \
+		--name "$(app_name)-$(version).tar.gz" \
+		--file $(build_dir)/$(app_name)-$(version).tar.gz
 
 clean:
 	rm -rf $(build_dir)
