@@ -27,7 +27,6 @@
 namespace OCA\Files_FullTextSearch_Tesseract\Settings;
 
 use Exception;
-use OCA\FullTextSearch\AppInfo\Application as FullTextSearch;
 use OCA\Files_FullTextSearch_Tesseract\AppInfo\Application;
 use OCA\Files_FullTextSearch_Tesseract\Service\ConfigService;
 use OCA\Files_FullTextSearch_Tesseract\Service\MiscService;
@@ -58,7 +57,8 @@ class Admin implements ISettings {
 	 * @param MiscService $miscService
 	 */
 	public function __construct(
-		IL10N $l10n, IURLGenerator $urlGenerator, ConfigService $configService, MiscService $miscService
+		IL10N $l10n, IURLGenerator $urlGenerator, ConfigService $configService,
+		MiscService $miscService
 	) {
 		$this->l10n = $l10n;
 		$this->urlGenerator = $urlGenerator;
@@ -80,10 +80,6 @@ class Admin implements ISettings {
 	 * @return string the section ID, e.g. 'sharing'
 	 */
 	public function getSection() {
-		if (class_exists(FullTextSearch::class)) {
-			return FullTextSearch::APP_NAME;
-		}
-
 		return 'fulltextsearch';
 	}
 

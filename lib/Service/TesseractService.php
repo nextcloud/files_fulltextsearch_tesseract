@@ -29,7 +29,7 @@ namespace OCA\Files_FullTextSearch_Tesseract\Service;
 
 use Exception;
 use OC\Files\View;
-use OCA\Files_FullTextSearch\Model\FilesDocument;
+use OCA\FullTextSearch\Model\IndexDocument;
 use OCP\Files\File;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
@@ -98,7 +98,7 @@ class TesseractService {
 			return;
 		}
 
-		/** @var FilesDocument $document */
+		/** @var \OCA\Files_FullTextSearch\Model\FilesDocument $document */
 		$document = $e->getArgument('document');
 
 		$this->extractContentUsingTesseractOCR($document, $file);
@@ -119,16 +119,17 @@ class TesseractService {
 
 
 	/**
-	 * @param FilesDocument $document
+	 * @param IndexDocument $document
 	 * @param File $file
 	 */
-	private function extractContentUsingTesseractOCR(FilesDocument &$document, File $file) {
+	private function extractContentUsingTesseractOCR(IndexDocument &$document, File $file) {
 
 		try {
 			if ($this->configService->getAppValue(ConfigService::TESSERACT_ENABLED) !== '1') {
 				return;
 			}
 
+			/** @var \OCA\Files_FullTextSearch\Model\FilesDocument $document */
 			$extension = pathinfo($document->getPath(), PATHINFO_EXTENSION);
 			if (!$this->parsedMimeType($document->getMimetype(), $extension)) {
 				return;
@@ -142,7 +143,7 @@ class TesseractService {
 			return;
 		}
 
-		$document->setContent(base64_encode($content), FilesDocument::ENCODED_BASE64);
+		$document->setContent(base64_encode($content), IndexDocument::ENCODED_BASE64);
 	}
 
 

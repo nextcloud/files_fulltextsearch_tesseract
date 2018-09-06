@@ -2,7 +2,7 @@
 <info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
 	<id>files_fulltextsearch_tesseract</id>
-	<name>Full text search - Files - Tesseract OCR (BETA)</name>
+	<name>Full text search - Files - Tesseract OCR</name>
 	<summary>OCR Some format</summary>
 	<description><![CDATA[
 
@@ -14,7 +14,7 @@ which is a wrapper for the command line program [Tesseract OCR](https://github.c
 Tesseract must be installed locally, and configured.
 	]]>
 	</description>
-	<version>0.2.0</version>
+	<version>0.99.0</version>
 	<licence>agpl</licence>
 	<author>Maxence Lange</author>
 	<namespace>Files_FullTextSearch_Tesseract</namespace>
