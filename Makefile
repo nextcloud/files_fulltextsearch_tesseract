@@ -9,7 +9,7 @@ package_name=$(app_name)
 cert_dir=$(HOME)/.nextcloud/certificates
 github_account=daita
 codecov_token_dir=$(HOME)/.nextcloud/codecov_token
-version+=0.99.1
+version+=1.0.0
 
 all: appstore
 
