@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
+
+
 /**
- * Files_FullTextSearch_OCR - OCR your documents before index
+ * Files_FullTextSearch_OCR - OCR your files before index
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -24,19 +27,28 @@
  *
  */
 
+
 namespace OCA\Files_FullTextSearch_Tesseract\Service;
 
 
 use Exception;
 use OC\Files\View;
-use OCA\FullTextSearch\Model\IndexDocument;
 use OCP\Files\File;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
+use OCP\Files_FullTextSearch\Model\AFilesDocument;
+use OCP\FullTextSearch\Model\IndexDocument;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 
+
+/**
+ * Class TesseractService
+ *
+ * @package OCA\Files_FullTextSearch_Tesseract\Service
+ */
 class TesseractService {
+
 
 	/** @var ConfigService */
 	private $configService;
@@ -46,14 +58,12 @@ class TesseractService {
 
 
 	/**
-	 * BookmarksService constructor.
+	 * TesseractService constructor.
 	 *
 	 * @param ConfigService $configService
 	 * @param MiscService $miscService
 	 */
-	public function __construct(
-		ConfigService $configService, MiscService $miscService
-	) {
+	public function __construct(ConfigService $configService, MiscService $miscService) {
 		$this->configService = $configService;
 		$this->miscService = $miscService;
 	}
@@ -65,7 +75,7 @@ class TesseractService {
 	 *
 	 * @return bool
 	 */
-	public function parsedMimeType($mimeType, $extension) {
+	public function parsedMimeType(string $mimeType, string $extension): bool {
 		$ocrMimes = [
 			'image/png',
 			'image/jpeg',
@@ -98,7 +108,7 @@ class TesseractService {
 			return;
 		}
 
-		/** @var \OCA\Files_FullTextSearch\Model\FilesDocument $document */
+		/** @var \OCP\Files_FullTextSearch\Model\AFilesDocument $document */
 		$document = $e->getArgument('document');
 
 		$this->extractContentUsingTesseractOCR($document, $file);
@@ -109,27 +119,20 @@ class TesseractService {
 	 * @param GenericEvent $e
 	 */
 	public function onSearchRequest(GenericEvent $e) {
-//		/** @var SearchRequest $request */
-//		$request = $e->getArgument('request');
-//		$meta = $request->getOption('meta', []);
-//		foreach ($meta as $m) {
-//			$request->addMetaTag($m);
-//		}
 	}
 
 
 	/**
-	 * @param IndexDocument $document
+	 * @param AFilesDocument $document
 	 * @param File $file
 	 */
-	private function extractContentUsingTesseractOCR(IndexDocument &$document, File $file) {
+	private function extractContentUsingTesseractOCR(AFilesDocument &$document, File $file) {
 
 		try {
 			if ($this->configService->getAppValue(ConfigService::TESSERACT_ENABLED) !== '1') {
 				return;
 			}
 
-			/** @var \OCA\Files_FullTextSearch\Model\FilesDocument $document */
 			$extension = pathinfo($document->getPath(), PATHINFO_EXTENSION);
 			if (!$this->parsedMimeType($document->getMimetype(), $extension)) {
 				return;
@@ -148,12 +151,12 @@ class TesseractService {
 
 
 	/**
-	 * @param $file
+	 * @param File $file
 	 *
 	 * @return string
 	 * @throws NotFoundException
 	 */
-	private function ocrFile(File $file) {
+	private function ocrFile(File $file): string {
 
 		try {
 			$path = $this->getAbsolutePath($file);
@@ -177,7 +180,7 @@ class TesseractService {
 	 *
 	 * @return bool
 	 */
-	private function parsedExtension($extension) {
+	private function parsedExtension(string $extension): bool {
 		$ocrExtensions = [
 //					'djvu'
 		];
@@ -196,11 +199,7 @@ class TesseractService {
 	 * @return string
 	 * @throws Exception
 	 */
-	private function getAbsolutePath(File $file) {
-//		$userId = $file->getOwner()
-//					   ->getUID();
-//
-//		$view = new View($userId . '/files/');
+	private function getAbsolutePath(File $file): string {
 		$view = new View('');
 		$absolutePath = $view->getLocalFile($file->getPath());
 

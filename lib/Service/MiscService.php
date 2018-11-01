@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
+
+
 /**
- * Files_FullTextSearch_OCR - OCR your documents before index
+ * Files_FullTextSearch_OCR - OCR your files before index
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -24,62 +27,46 @@
  *
  */
 
+
 namespace OCA\Files_FullTextSearch_Tesseract\Service;
+
 
 use OCA\Files_FullTextSearch_Tesseract\AppInfo\Application;
 use OCP\ILogger;
 
+
+/**
+ * Class MiscService
+ *
+ * @package OCA\Files_FullTextSearch_Tesseract\Service
+ */
 class MiscService {
 
 	/** @var ILogger */
 	private $logger;
 
+
+	/**
+	 * MiscService constructor.
+	 *
+	 * @param ILogger $logger
+	 */
 	public function __construct(ILogger $logger) {
 		$this->logger = $logger;
 	}
 
-	public function log($message, $level = 2) {
+
+	/**
+	 * @param string $message
+	 * @param int $level
+	 */
+	public function log(string $message, int $level = 2) {
 		$data = array(
 			'app'   => Application::APP_NAME,
 			'level' => $level
 		);
 
 		$this->logger->log($level, $message, $data);
-	}
-
-	/**
-	 * @param $arr
-	 * @param $k
-	 *
-	 * @param string $default
-	 *
-	 * @return array|string|integer
-	 */
-	public static function get($arr, $k, $default = '') {
-		if (!key_exists($k, $arr)) {
-			return $default;
-		}
-
-		return $arr[$k];
-	}
-
-
-	/**
-	 * @param string $path
-	 * @param bool $trim
-	 *
-	 * @return string
-	 */
-	public static function noEndSlash($path, $trim = false) {
-		if (substr($path, -1) === '/') {
-			$path = substr($path, 0, -1);
-		}
-
-		if ($trim) {
-			$path = trim($path);
-		}
-
-		return $path;
 	}
 
 }

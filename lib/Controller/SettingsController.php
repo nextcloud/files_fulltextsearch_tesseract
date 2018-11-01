@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
+
+
 /**
- * Files_FullTextSearch_OCR - OCR your documents before index
+ * Files_FullTextSearch_OCR - OCR your files before index
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -24,7 +27,9 @@
  *
  */
 
+
 namespace OCA\Files_FullTextSearch_Tesseract\Controller;
+
 
 use OCA\Files_FullTextSearch_Tesseract\AppInfo\Application;
 use OCA\Files_FullTextSearch_Tesseract\Service\ConfigService;
@@ -34,6 +39,12 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IRequest;
 
+
+/**
+ * Class SettingsController
+ *
+ * @package OCA\Files_FullTextSearch_Tesseract\Controller
+ */
 class SettingsController extends Controller {
 
 
@@ -63,7 +74,7 @@ class SettingsController extends Controller {
 	/**
 	 * @return DataResponse
 	 */
-	public function getSettingsAdmin() {
+	public function getSettingsAdmin(): DataResponse {
 		$data = $this->configService->getConfig();
 
 		return new DataResponse($data, Http::STATUS_OK);
@@ -75,11 +86,11 @@ class SettingsController extends Controller {
 	 *
 	 * @return DataResponse
 	 */
-	public function setSettingsAdmin($data) {
+	public function setSettingsAdmin(array $data): DataResponse {
 		$this->configService->setConfig($data);
 
 		return $this->getSettingsAdmin();
 	}
 
-
 }
+

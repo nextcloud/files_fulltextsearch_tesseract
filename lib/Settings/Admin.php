@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
+
+
 /**
- * Files_FullTextSearch_OCR - OCR your documents before index
+ * Files_FullTextSearch_OCR - OCR your files before index
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -24,7 +27,9 @@
  *
  */
 
+
 namespace OCA\Files_FullTextSearch_Tesseract\Settings;
+
 
 use Exception;
 use OCA\Files_FullTextSearch_Tesseract\AppInfo\Application;
@@ -35,7 +40,14 @@ use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\Settings\ISettings;
 
+
+/**
+ * Class Admin
+ *
+ * @package OCA\Files_FullTextSearch_Tesseract\Settings
+ */
 class Admin implements ISettings {
+
 
 	/** @var IL10N */
 	private $l10n;
@@ -71,7 +83,7 @@ class Admin implements ISettings {
 	 * @return TemplateResponse
 	 * @throws Exception
 	 */
-	public function getForm() {
+	public function getForm(): TemplateResponse {
 		return new TemplateResponse(Application::APP_NAME, 'settings.admin', []);
 	}
 
@@ -79,7 +91,7 @@ class Admin implements ISettings {
 	/**
 	 * @return string the section ID, e.g. 'sharing'
 	 */
-	public function getSection() {
+	public function getSection(): string {
 		return 'fulltextsearch';
 	}
 
@@ -91,9 +103,9 @@ class Admin implements ISettings {
 	 *
 	 * keep the server setting at the top, right after "server settings"
 	 */
-	public function getPriority() {
+	public function getPriority(): int {
 		return 51;
 	}
 
-
 }
+

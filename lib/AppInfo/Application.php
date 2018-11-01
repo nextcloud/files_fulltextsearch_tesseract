@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
+
+
 /**
- * Files_FullTextSearch_OCR - OCR your documents before index
+ * Files_FullTextSearch_OCR - OCR your files before index
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -24,19 +27,29 @@
  *
  */
 
+
 namespace OCA\Files_FullTextSearch_Tesseract\AppInfo;
+
 
 use OCA\Files_FullTextSearch_Tesseract\Service\TesseractService;
 use OCP\AppFramework\App;
 use OCP\AppFramework\QueryException;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
+
+/**
+ * Class Application
+ *
+ * @package OCA\Files_FullTextSearch_Tesseract\AppInfo
+ */
 class Application extends App {
+
 
 	const APP_NAME = 'files_fulltextsearch_tesseract';
 
 	/** @var TesseractService */
 	private $tesseractService;
+
 
 	/**
 	 * @param array $params
@@ -45,7 +58,6 @@ class Application extends App {
 	 */
 	public function __construct(array $params = []) {
 		parent::__construct(self::APP_NAME, $params);
-
 
 		$c = $this->getContainer();
 		$this->tesseractService = $c->query(TesseractService::class);
@@ -71,5 +83,4 @@ class Application extends App {
 		);
 	}
 }
-
 
