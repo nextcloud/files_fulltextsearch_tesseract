@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+
 /**
  * Files_FullTextSearch_OCR - OCR your files before index
  *
@@ -24,12 +27,21 @@
  *
  */
 
+
 namespace OCA\Files_FullTextSearch_Tesseract\AppInfo;
+
+
+use OCP\AppFramework\QueryException;
+
 
 require_once __DIR__ . '/autoload.php';
 
-$app = new Application();
-$app->registerFilesExtension();
+
+try {
+	$app = new Application();
+	$app->registerFilesExtension();
+} catch (QueryException $e) {
+}
 
 
 

@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
+
+
 /**
- * Files_FullTextSearch_OCR - OCR your documents before index
+ * Files_FullTextSearch_OCR - OCR your files before index
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -24,8 +27,10 @@
  *
  */
 
+
 use OCA\Files_FullTextSearch_Tesseract\AppInfo\Application;
 use OCP\Util;
+
 
 Util::addScript(Application::APP_NAME, 'admin.elements');
 Util::addScript(Application::APP_NAME, 'admin.settings');

@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
+
+
 /**
- * Files_FullTextSearch_OCR - OCR your documents before index
+ * Files_FullTextSearch_OCR - OCR your files before index
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -24,14 +27,21 @@
  *
  */
 
+
 namespace OCA\Files_FullTextSearch_Tesseract\Service;
+
 
 use OCA\Files_FullTextSearch_Tesseract\AppInfo\Application;
 use OCP\IConfig;
-use OCP\PreConditionNotMetException;
-use OCP\Util;
 
+
+/**
+ * Class ConfigService
+ *
+ * @package OCA\Files_FullTextSearch_Tesseract\Service
+ */
 class ConfigService {
+
 
 	const TESSERACT_ENABLED = 'tesseract_enabled';
 	const TESSERACT_PSM = 'tesseract_psm';
@@ -53,6 +63,7 @@ class ConfigService {
 	/** @var MiscService */
 	private $miscService;
 
+
 	/**
 	 * ConfigService constructor.
 	 *
@@ -60,7 +71,7 @@ class ConfigService {
 	 * @param string $userId
 	 * @param MiscService $miscService
 	 */
-	public function __construct(IConfig $config, $userId, MiscService $miscService) {
+	public function __construct(IConfig $config, string $userId, MiscService $miscService) {
 		$this->config = $config;
 		$this->userId = $userId;
 		$this->miscService = $miscService;
@@ -70,7 +81,7 @@ class ConfigService {
 	/**
 	 * @return array
 	 */
-	public function getConfig() {
+	public function getConfig(): array {
 		$keys = array_keys($this->defaults);
 		$data = [];
 
@@ -85,7 +96,7 @@ class ConfigService {
 	/**
 	 * @param array $save
 	 */
-	public function setConfig($save) {
+	public function setConfig(array $save) {
 		$keys = array_keys($this->defaults);
 
 		foreach ($keys as $k) {
@@ -103,7 +114,7 @@ class ConfigService {
 	 *
 	 * @return string
 	 */
-	public function getAppValue($key) {
+	public function getAppValue(string $key): string {
 		$defaultValue = null;
 		if (array_key_exists($key, $this->defaults)) {
 			$defaultValue = $this->defaults[$key];
@@ -117,10 +128,8 @@ class ConfigService {
 	 *
 	 * @param string $key
 	 * @param string $value
-	 *
-	 * @return void
 	 */
-	public function setAppValue($key, $value) {
+	public function setAppValue(string $key, string $value) {
 		$this->config->setAppValue(Application::APP_NAME, $key, $value);
 	}
 
@@ -131,7 +140,7 @@ class ConfigService {
 	 *
 	 * @return string
 	 */
-	public function deleteAppValue($key) {
+	public function deleteAppValue(string $key): string {
 		return $this->config->deleteAppValue(Application::APP_NAME, $key);
 	}
 
@@ -139,30 +148,13 @@ class ConfigService {
 	/**
 	 * return if option is enabled.
 	 *
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return bool
 	 */
-	public function optionIsSelected($key) {
+	public function optionIsSelected(string $key): bool {
 		return ($this->getAppValue($key) === '1');
 	}
 
-
-	/**
-	 * return the cloud version.
-	 * if $complete is true, return a string x.y.z
-	 *
-	 * @param boolean $complete
-	 *
-	 * @return string|integer
-	 */
-	public function getCloudVersion($complete = false) {
-		$ver = Util::getVersion();
-
-		if ($complete) {
-			return implode('.', $ver);
-		}
-
-		return $ver[0];
-	}
 }
+
