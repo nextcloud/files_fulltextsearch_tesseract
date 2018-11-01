@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.2.0 (NC15)
+
+- Compat nc15 + full php7
+
 
 ### 1.0.0
 
