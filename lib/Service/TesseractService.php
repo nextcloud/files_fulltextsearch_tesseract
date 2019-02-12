@@ -38,6 +38,7 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files_FullTextSearch\Model\AFilesDocument;
 use OCP\FullTextSearch\Model\IndexDocument;
+use OCP\FullTextSearch\Model\ISearchRequest;
 use Spatie\PdfToImage\Exceptions\PageDoesNotExist;
 use Spatie\PdfToImage\Pdf;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -122,6 +123,9 @@ class TesseractService {
 	 * @param GenericEvent $e
 	 */
 	public function onSearchRequest(GenericEvent $e) {
+		/** @var ISearchRequest $file */
+		$request = $e->getArgument('request');
+		$request->addPart('ocr');
 	}
 
 
