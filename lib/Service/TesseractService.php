@@ -38,6 +38,8 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files_FullTextSearch\Model\AFilesDocument;
 use OCP\FullTextSearch\Model\IndexDocument;
+use Spatie\PdfToImage\Exceptions\PageDoesNotExist;
+use Spatie\PdfToImage\Pdf;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 
@@ -80,7 +82,8 @@ class TesseractService {
 			'image/png',
 			'image/jpeg',
 			'image/tiff',
-			'image/vnd.djvu'
+			'image/vnd.djvu',
+			'application/pdf'
 		];
 
 		foreach ($ocrMimes as $mime) {
@@ -134,12 +137,17 @@ class TesseractService {
 			}
 
 			$extension = pathinfo($document->getPath(), PATHINFO_EXTENSION);
+
 			if (!$this->parsedMimeType($document->getMimetype(), $extension)) {
 				return;
 			}
 
 			// TODO: How to set options so that the index can be reset if admin settings are changed
 			//	$this->configService->setDocumentIndexOption($document, ConfigService::FILES_OCR);
+
+			if ($this->ocrPdf($document, $file)) {
+				return;
+			}
 
 			$content = $this->ocrFile($file);
 		} catch (Exception $e) {
@@ -161,9 +169,20 @@ class TesseractService {
 		try {
 			$path = $this->getAbsolutePath($file);
 		} catch (Exception $e) {
-			throw new NotFoundException('file not found');
+			$this->miscService->log('Exception while ocr file: ' . $e->getMessage(), 1);
+			throw new NotFoundException();
 		}
 
+		return $this->ocrFileFromPath($path);
+	}
+
+
+	/**
+	 * @param string $path
+	 *
+	 * @return string
+	 */
+	private function ocrFileFromPath(string $path): string {
 		$ocr = new TesseractOCR($path);
 		$ocr->psm($this->configService->getAppValue(ConfigService::TESSERACT_PSM));
 		$lang = explode(',', $this->configService->getAppValue(ConfigService::TESSERACT_LANG));
@@ -172,6 +191,47 @@ class TesseractService {
 		$result = $ocr->run();
 
 		return $result;
+	}
+
+
+	/**
+	 * @param AFilesDocument $document
+	 * @param File $file
+	 *
+	 * @return bool
+	 * @throws NotFoundException
+	 */
+	private function ocrPdf(AFilesDocument $document, File $file): bool {
+		if ($document->getMimetype() !== 'application/pdf') {
+			return false;
+		}
+
+		try {
+			$path = $this->getAbsolutePath($file);
+			$pdf = new Pdf($path);
+		} catch (Exception $e) {
+			$this->miscService->log('Exception while ocr pdf file: ' . $e->getMessage(), 1);
+			throw new NotFoundException();
+		}
+
+		$content = '';
+		for ($i = 1; $i <= $pdf->getNumberOfPages(); $i++) {
+			// we create a temp image file
+			$tmpFile = tmpfile();
+			$tmpPath = stream_get_meta_data($tmpFile)['uri'];
+
+			try {
+				$pdf->setPage($i);
+				$pdf->saveImage($tmpPath);
+
+				$content .= $this->ocrFileFromPath($tmpPath);
+			} catch (PageDoesNotExist $e) {
+			}
+		}
+
+		$document->addPart('ocr', $content);
+
+		return true;
 	}
 
 
