@@ -46,11 +46,13 @@ class ConfigService {
 	const TESSERACT_ENABLED = 'tesseract_enabled';
 	const TESSERACT_PSM = 'tesseract_psm';
 	const TESSERACT_LANG = 'tesseract_lang';
+	const TESSERACT_PDF = 'tesseract_pdf';
 
 	public $defaults = [
 		self::TESSERACT_ENABLED => '0',
 		self::TESSERACT_PSM     => '4',
-		self::TESSERACT_LANG    => 'eng'
+		self::TESSERACT_LANG    => 'eng',
+		self::TESSERACT_PDF     => '0'
 	];
 
 

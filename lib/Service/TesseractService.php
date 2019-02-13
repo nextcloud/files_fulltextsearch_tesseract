@@ -210,6 +210,10 @@ class TesseractService {
 			return false;
 		}
 
+		if ($this->configService->getAppValue(ConfigService::TESSERACT_PDF) !== '1') {
+			return true;
+		}
+
 		try {
 			$path = $this->getAbsolutePath($file);
 			$pdf = new Pdf($path);

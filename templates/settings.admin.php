@@ -75,6 +75,18 @@ Util::addScript(Application::APP_NAME, 'admin');
 				<input type="text" class="big" id="tesseract_lang" value=""/>
 			</div>
 		</div>
+
+		<div class="div-table-row tesseract_ocr_enabled">
+			<div class="div-table-col div-table-col-left">
+				<span class="leftcol">PDF</span>
+				<br/>
+				<em>enable the OCR of PDF (heavy on resource)</em>
+			</div>
+			<div class="div-table-col">
+				<input type="checkbox" id="tesseract_pdf" value="1"/>
+			</div>
+		</div>
+
 	</div>
 
 
