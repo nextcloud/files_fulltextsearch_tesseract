@@ -1,11 +1,5 @@
 # Changelog
 
-
-### 1.2.2
-
-- OCR PDF files
-
-
 ### 1.2.0 (NC15)
 
 - Compat nc15 + full php7
