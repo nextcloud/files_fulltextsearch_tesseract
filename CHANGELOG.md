@@ -1,6 +1,11 @@
 # Changelog
 
 
+### 1.2.3
+
+- Fixing small typo
+
+
 ### 1.2.2
 
 - OCR PDF files
