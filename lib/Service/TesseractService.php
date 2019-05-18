@@ -37,7 +37,7 @@ use OCP\Files\File;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files_FullTextSearch\Model\AFilesDocument;
-use OCP\FullTextSearch\Model\IIndexDocument;
+use OCP\FullTextSearch\Model\IndexDocument;
 use OCP\FullTextSearch\Model\ISearchRequest;
 use Spatie\PdfToImage\Exceptions\PageDoesNotExist;
 use Spatie\PdfToImage\Pdf;
@@ -158,7 +158,7 @@ class TesseractService {
 			return;
 		}
 
-		$document->setContent(base64_encode($content), IIndexDocument::ENCODED_BASE64);
+		$document->setContent(base64_encode($content), IndexDocument::ENCODED_BASE64);
 	}
 
 
