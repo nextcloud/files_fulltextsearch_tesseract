@@ -10,7 +10,7 @@ cert_dir=$(HOME)/.nextcloud/certificates
 github_account=daita
 branch=master
 codecov_token_dir=$(HOME)/.nextcloud/codecov_token
-version+=1.2.3
+version+=1.3.0
 
 all: appstore
 
