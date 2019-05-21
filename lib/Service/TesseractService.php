@@ -124,9 +124,6 @@ class TesseractService {
 	 * @param File $file
 	 */
 	private function extractContentUsingTesseractOCR(AFilesDocument &$document, File $file) {
-
-		$this->miscService->log("Starting " . $this->getAbsolutePath($file), 3);
-
 		try {
 			if ($this->configService->getAppValue(ConfigService::TESSERACT_ENABLED) !== '1') {
 				return;
