@@ -78,18 +78,13 @@ class TesseractService {
 	 *
 	 * @return bool
 	 */
-	public function parsedMimeType(string $mimeType, string $extension): bool {
-		$ocrMimes = preg_split("/\r\n|\n|\r/", $this->configService->getAppValue(ConfigService::TESSERACT_ENABLED);
+	public function isValidMimeType(string $mimeType): bool {
+		$ocrMimes = explode(",", $this->configService->getAppValue(ConfigService::TESSERACT_MIMETYPES));
 
 		foreach ($ocrMimes as $mime) {
-			if (strpos($mimeType, $mime) === 0) {
+			if ($mimeType === $mime) {
 				return true;
 			}
-		}
-
-		// ME: This returns only false
-		if ($mimeType === 'application/octet-stream') {
-			return $this->parsedExtension($extension);
 		}
 
 		return false;
@@ -130,23 +125,25 @@ class TesseractService {
 	 */
 	private function extractContentUsingTesseractOCR(AFilesDocument &$document, File $file) {
 
+		$this->miscService->log("Starting " . $this->getAbsolutePath($file), 3);
+
 		try {
 			if ($this->configService->getAppValue(ConfigService::TESSERACT_ENABLED) !== '1') {
 				return;
 			}
 
-			$extension = pathinfo($document->getPath(), PATHINFO_EXTENSION);
-
-			if (!$this->parsedMimeType($document->getMimetype(), $extension)) {
+			if (!$this->isValidMimeType($document->getMimetype())) {
 				return;
 			}
 
 			// TODO: How to set options so that the index can be reset if admin settings are changed
 			//	$this->configService->setDocumentIndexOption($document, ConfigService::FILES_OCR);
 
-			if ($document->getMimetype() !== 'application/pdf' && $this->configService->getAppValue(ConfigService::TESSERACT_PDF) !== '1') {
-				$this->ocrPdf($document, $file)
+			if ($document->getMimetype() === 'application/pdf') {
+				$this->miscService->log("Processing pdf " . $this->getAbsolutePath($file), 3);
+				$this->ocrPdf($document, $file);
 			} else {
+				$this->miscService->log("Processing other " . $this->getAbsolutePath($file), 3);
 				$content = $this->ocrFile($file);
 			}
 
@@ -230,25 +227,6 @@ class TesseractService {
 		return true;
 	}
 
-
-	/**
-	 * @param string $extension
-	 *
-	 * @return bool
-	 */
-	private function parsedExtension(string $extension): bool {
-		$ocrExtensions = [
-//					'djvu'
-		];
-
-		if (in_array($extension, $ocrExtensions)) {
-			return true;
-		}
-
-		return false;
-	}
-
-
 	/**
 	 * @param File $file
 	 *
@@ -261,12 +239,4 @@ class TesseractService {
 
 		return $absolutePath;
 	}
-
-	private function getMimeTypes(): string[] {
-		foreach($ocrMimes as &$row) {
-			$row = explode()
-		}
-	}
-
-
 }
