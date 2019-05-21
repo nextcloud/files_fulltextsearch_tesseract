@@ -139,19 +139,20 @@ class TesseractService {
 			// TODO: How to set options so that the index can be reset if admin settings are changed
 			//	$this->configService->setDocumentIndexOption($document, ConfigService::FILES_OCR);
 
+			// Not sure why PDF goes into orc and non-pdf gets set as content?
 			if ($document->getMimetype() === 'application/pdf') {
-				$this->miscService->log("Processing pdf " . $this->getAbsolutePath($file), 3);
-				$this->ocrPdf($document, $file);
+				$this->miscService->log("Processing pdf " . $this->getAbsolutePath($file), 1);
+				$content = $this->ocrPdf($file);
+				$document->addPart('ocr', $content);
 			} else {
-				$this->miscService->log("Processing other " . $this->getAbsolutePath($file), 3);
+				$this->miscService->log("Processing other " . $this->getAbsolutePath($file), 1);
 				$content = $this->ocrFile($file);
+				$document->setContent(base64_encode($content), IIndexDocument::ENCODED_BASE64);
 			}
 
 		} catch (Exception $e) {
 			return;
 		}
-
-		$document->setContent(base64_encode($content), IIndexDocument::ENCODED_BASE64);
 	}
 
 
@@ -198,7 +199,7 @@ class TesseractService {
 	 * @return bool
 	 * @throws NotFoundException
 	 */
-	private function ocrPdf(AFilesDocument $document, File $file): bool {
+	private function ocrPdf(File $file): string {
 		try {
 			$path = $this->getAbsolutePath($file);
 			$pdf = new Pdf($path);
@@ -220,11 +221,9 @@ class TesseractService {
 				$content .= $this->ocrFileFromPath($tmpPath);
 			} catch (PageDoesNotExist $e) {
 			}
+
+			return $content;
 		}
-
-		$document->addPart('ocr', $content);
-
-		return true;
 	}
 
 	/**

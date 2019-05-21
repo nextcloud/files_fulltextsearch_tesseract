@@ -80,7 +80,7 @@ Util::addScript(Application::APP_NAME, 'admin');
 			<div class="div-table-col div-table-col-left">
 				<span class="leftcol">PDF</span>
 				<br/>
-				<em>mime types to process</em>
+				<em>mime types to process, separated by <b>,</b> (comma)</em>
 			</div>
 			<div class="div-table-col">
 				<input type="text" class="big" id="tesseract_mimetypes" value=""/>
