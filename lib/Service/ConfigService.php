@@ -47,12 +47,14 @@ class ConfigService {
 	const TESSERACT_PSM = 'tesseract_psm';
 	const TESSERACT_LANG = 'tesseract_lang';
 	const TESSERACT_PDF = 'tesseract_pdf';
+	const TESSERACT_MIMETYPES = 'tesseract_mimetypes';
 
 	public $defaults = [
-		self::TESSERACT_ENABLED => '0',
-		self::TESSERACT_PSM     => '4',
-		self::TESSERACT_LANG    => 'eng',
-		self::TESSERACT_PDF     => '0'
+		self::TESSERACT_ENABLED   => '0',
+		self::TESSERACT_PSM       => '4',
+		self::TESSERACT_LANG      => 'eng',
+		self::TESSERACT_PDF       => '0',
+		self::TESSERACT_MIMETYPES => "image/png\nimage/jpeg\nimage/tiff\nimage/vnd.djvu\napplication/pdf"
 	];
 
 

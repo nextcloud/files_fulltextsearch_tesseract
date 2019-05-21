@@ -79,13 +79,7 @@ class TesseractService {
 	 * @return bool
 	 */
 	public function parsedMimeType(string $mimeType, string $extension): bool {
-		$ocrMimes = [
-			'image/png',
-			'image/jpeg',
-			'image/tiff',
-			'image/vnd.djvu',
-			'application/pdf'
-		];
+		$ocrMimes = preg_split("/\r\n|\n|\r/", $this->configService->getAppValue(ConfigService::TESSERACT_ENABLED);
 
 		foreach ($ocrMimes as $mime) {
 			if (strpos($mimeType, $mime) === 0) {
@@ -93,6 +87,7 @@ class TesseractService {
 			}
 		}
 
+		// ME: This returns only false
 		if ($mimeType === 'application/octet-stream') {
 			return $this->parsedExtension($extension);
 		}
@@ -149,11 +144,12 @@ class TesseractService {
 			// TODO: How to set options so that the index can be reset if admin settings are changed
 			//	$this->configService->setDocumentIndexOption($document, ConfigService::FILES_OCR);
 
-			if ($this->ocrPdf($document, $file)) {
-				return;
+			if ($document->getMimetype() !== 'application/pdf' && $this->configService->getAppValue(ConfigService::TESSERACT_PDF) !== '1') {
+				$this->ocrPdf($document, $file)
+			} else {
+				$content = $this->ocrFile($file);
 			}
 
-			$content = $this->ocrFile($file);
 		} catch (Exception $e) {
 			return;
 		}
@@ -206,14 +202,6 @@ class TesseractService {
 	 * @throws NotFoundException
 	 */
 	private function ocrPdf(AFilesDocument $document, File $file): bool {
-		if ($document->getMimetype() !== 'application/pdf') {
-			return false;
-		}
-
-		if ($this->configService->getAppValue(ConfigService::TESSERACT_PDF) !== '1') {
-			return true;
-		}
-
 		try {
 			$path = $this->getAbsolutePath($file);
 			$pdf = new Pdf($path);
@@ -272,6 +260,12 @@ class TesseractService {
 		$absolutePath = $view->getLocalFile($file->getPath());
 
 		return $absolutePath;
+	}
+
+	private function getMimeTypes(): string[] {
+		foreach($ocrMimes as &$row) {
+			$row = explode()
+		}
 	}
 
 
