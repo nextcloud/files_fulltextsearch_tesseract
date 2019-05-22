@@ -218,9 +218,9 @@ class TesseractService {
 				$content .= $this->ocrFileFromPath($tmpPath);
 			} catch (PageDoesNotExist $e) {
 			}
-
-			return $content;
 		}
+
+		return $content;
 	}
 
 	/**
