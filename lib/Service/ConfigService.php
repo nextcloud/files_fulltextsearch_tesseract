@@ -33,6 +33,7 @@ namespace OCA\Files_FullTextSearch_Tesseract\Service;
 
 use OCA\Files_FullTextSearch_Tesseract\AppInfo\Application;
 use OCP\IConfig;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 
 /**
@@ -77,6 +78,21 @@ class ConfigService {
 		$this->config = $config;
 		$this->userId = $userId;
 		$this->miscService = $miscService;
+	}
+
+
+	public function onGetConfig(GenericEvent $e) {
+		/** @var array $config */
+		$config = $e->getArgument('config');
+		$config['files_fulltextsearch_tesseract'] =
+			[
+				'version' => $this->getAppValue('installed_version'),
+				'enabled' => $this->getAppValue(self::TESSERACT_ENABLED),
+				'psm'     => $this->getAppValue(self::TESSERACT_PSM),
+				'lang'    => $this->getAppValue(self::TESSERACT_LANG),
+				'pdf'     => $this->getAppValue(self::TESSERACT_PDF),
+			];
+		$e->setArgument('config', $config);
 	}
 
 
