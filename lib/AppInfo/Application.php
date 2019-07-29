@@ -31,6 +31,7 @@ declare(strict_types=1);
 namespace OCA\Files_FullTextSearch_Tesseract\AppInfo;
 
 
+use OCA\Files_FullTextSearch_Tesseract\Service\ConfigService;
 use OCA\Files_FullTextSearch_Tesseract\Service\TesseractService;
 use OCP\AppFramework\App;
 use OCP\AppFramework\QueryException;
@@ -50,6 +51,8 @@ class Application extends App {
 	/** @var TesseractService */
 	private $tesseractService;
 
+	/** @var ConfigService */
+	private $configService;
 
 	/**
 	 * @param array $params
@@ -61,6 +64,7 @@ class Application extends App {
 
 		$c = $this->getContainer();
 		$this->tesseractService = $c->query(TesseractService::class);
+		$this->configService = $c->query(ConfigService::class);
 	}
 
 
@@ -69,6 +73,12 @@ class Application extends App {
 	 */
 	public function registerFilesExtension() {
 		$eventDispatcher = \OC::$server->getEventDispatcher();
+		$eventDispatcher->addListener(
+			'\OCA\Files_FullTextSearch::onGetConfig',
+			function(GenericEvent $e) {
+				$this->configService->onGetConfig($e);
+			}
+		);
 		$eventDispatcher->addListener(
 			'\OCA\Files_FullTextSearch::onFileIndexing',
 			function(GenericEvent $e) {
