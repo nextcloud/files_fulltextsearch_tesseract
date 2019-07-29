@@ -1,5 +1,11 @@
 # Changelog
 
+
+### 1.3.1 
+
+- returns details on onGetConfig event
+
+
 ### 1.3.0 (NC16+)
 
 
