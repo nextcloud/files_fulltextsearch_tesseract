@@ -39,10 +39,9 @@ use OCP\Files\NotFoundException;
 use OCP\Files_FullTextSearch\Model\AFilesDocument;
 use OCP\FullTextSearch\Model\IIndexDocument;
 use OCP\FullTextSearch\Model\ISearchRequest;
-use Spatie\PdfToImage\Exceptions\PageDoesNotExist;
-use Spatie\PdfToImage\Pdf;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use thiagoalessio\TesseractOCR\TesseractOCR;
+use Wb\PdfImages\PdfImages;
 
 
 /**
@@ -214,29 +213,23 @@ class TesseractService {
 			return true;
 		}
 
+		
 		try {
-			$path = $this->getAbsolutePath($file);
-			$pdf = new Pdf($path);
+		    $path = $this->getAbsolutePath($file);
+		    $pdfImages = PdfImages::create()->extractImages($path);
 		} catch (Exception $e) {
 			$this->miscService->log('Exception while ocr pdf file: ' . $e->getMessage(), 1);
 			throw new NotFoundException();
 		}
 
 		$content = '';
-		for ($i = 1; $i <= $pdf->getNumberOfPages(); $i++) {
-			// we create a temp image file
-			$tmpFile = tmpfile();
-			$tmpPath = stream_get_meta_data($tmpFile)['uri'];
-
-			try {
-				$pdf->setPage($i);
-				$pdf->saveImage($tmpPath);
-
-				$content .= $this->ocrFileFromPath($tmpPath);
-			} catch (PageDoesNotExist $e) {
-			}
+		foreach ($pdfImages as $pdfImage) {
+		    $imageText = $this->ocrFileFromPath($pdfImage->getPathname());
+		    unlink($pdfImage->getPathname());
+		    $content .= $imageText;
 		}
-
+		rmdir($pdfImages->getPath());
+		
 		$document->addPart('ocr', $content);
 
 		return true;
