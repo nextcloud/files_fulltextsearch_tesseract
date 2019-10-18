@@ -39,8 +39,6 @@ use OCP\Files\NotFoundException;
 use OCP\Files_FullTextSearch\Model\AFilesDocument;
 use OCP\FullTextSearch\Model\IIndexDocument;
 use OCP\FullTextSearch\Model\ISearchRequest;
-use Spatie\PdfToImage\Exceptions\PageDoesNotExist;
-use Spatie\PdfToImage\Pdf;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use Wb\PdfImages\PdfImages;
