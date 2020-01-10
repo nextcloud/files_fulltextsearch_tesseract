@@ -1,7 +1,14 @@
 # Changelog
 
 
-### 1.3.1 
+### 1.3.2
+
+- more logs
+- catch Throwable
+- unlink temp files
+
+
+### 1.3.1
 
 - returns details on onGetConfig event
 
