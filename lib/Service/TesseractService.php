@@ -146,6 +146,12 @@ class TesseractService {
 				return;
 			}
 
+			$this->miscService->log(
+				'extracting content using TesseractOCR for #' . $document->getId() . ' - '
+				. $document->getPath() . '; extension: '
+				. $extension, 0
+			);
+
 			// TODO: How to set options so that the index can be reset if admin settings are changed
 			//	$this->configService->setDocumentIndexOption($document, ConfigService::FILES_OCR);
 
@@ -173,7 +179,7 @@ class TesseractService {
 		try {
 			$path = $this->getAbsolutePath($file);
 		} catch (Exception $e) {
-			$this->miscService->log('Exception while ocr file: ' . $e->getMessage(), 1);
+			$this->miscService->log('Exception while trying to obtain absolute path: ' . $e->getMessage(), 1);
 			throw new NotFoundException();
 		}
 
@@ -187,12 +193,21 @@ class TesseractService {
 	 * @return string
 	 */
 	private function ocrFileFromPath(string $path): string {
+		$this->miscService->log('generating the TesseractOCR wrapper for ' . $path, 0);
+
 		$ocr = new TesseractOCR($path);
 		$ocr->psm($this->configService->getAppValue(ConfigService::TESSERACT_PSM));
 		$lang = explode(',', $this->configService->getAppValue(ConfigService::TESSERACT_LANG));
 		call_user_func_array([$ocr, 'lang'], array_map('trim', $lang));
-		$ocr->command .= ' 2> /dev/null';
+		$this->miscService->log('running the OCR command: ' . $ocr->command, 0);
+
+		if ($this->configService->getLogLevel() > 0) {
+			$ocr->command .= ' 2> /dev/null';
+		}
+
 		$result = $ocr->run();
+
+		$this->miscService->log('OCR command ran smoothly', 0);
 
 		return $result;
 	}
@@ -214,22 +229,36 @@ class TesseractService {
 			return true;
 		}
 
+
+		$this->miscService->log("looks like we're working on a PDF file", 0);
+
 		try {
 			$path = $this->getAbsolutePath($file);
+			$this->miscService->log('Absolute path: ' . $path, 0);
 			$pdf = new Pdf($path);
 		} catch (Exception $e) {
-			$this->miscService->log('Exception while ocr pdf file: ' . $e->getMessage(), 1);
+			$this->miscService->log(get_class($e) . ' while ocr pdf: ' . $e->getMessage(), 1);
 			throw new NotFoundException();
 		}
 
 		$content = '';
-		for ($i = 1; $i <= $pdf->getNumberOfPages(); $i++) {
-			// we create a temp image file
+		$pages = $pdf->getNumberOfPages();
+		$this->miscService->log('PDF contains ' . $pages . ' page(s)', 0);
+		for ($i = 1; $i <= $pages; $i++) {
+			$this->miscService->log('Creating a temp image file for page #' . $i, 0);
+
 			$tmpFile = tmpfile();
 			$tmpPath = stream_get_meta_data($tmpFile)['uri'];
+			$this->miscService->log('temp image file: ' . $tmpPath . ' for page #' . $i, 0);
 
 			try {
+				$this->miscService->log('opening the PDF at the page #' . $i, 0);
 				$pdf->setPage($i);
+
+				$this->miscService->log(
+					'saving the current page as image in ' . $tmpPath
+					. ' before OCRing the generated temp file', 0
+				);
 				$pdf->saveImage($tmpPath);
 
 				$content .= $this->ocrFileFromPath($tmpPath);
@@ -237,6 +266,9 @@ class TesseractService {
 			}
 		}
 
+		$this->miscService->log(
+			'content of the PDF was fully extracted, saving the data into the IndexDocument', 0
+		);
 		$document->addPart('ocr', $content);
 
 		return true;
@@ -269,9 +301,7 @@ class TesseractService {
 	 */
 	private function getAbsolutePath(File $file): string {
 		$view = new View('');
-		$absolutePath = $view->getLocalFile($file->getPath());
-
-		return $absolutePath;
+		return $view->getLocalFile($file->getPath());
 	}
 
 

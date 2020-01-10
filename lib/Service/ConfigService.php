@@ -174,5 +174,12 @@ class ConfigService {
 		return ($this->getAppValue($key) === '1');
 	}
 
+	/**
+	 * @return int
+	 */
+	public function getLogLevel(): int {
+		return (int)$this->config->getSystemValue('loglevel', 1);
+	}
+
 }
 
