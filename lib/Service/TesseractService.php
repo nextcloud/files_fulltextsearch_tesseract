@@ -43,6 +43,7 @@ use Spatie\PdfToImage\Exceptions\PageDoesNotExist;
 use Spatie\PdfToImage\Pdf;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use thiagoalessio\TesseractOCR\TesseractOCR;
+use Throwable;
 
 
 /**
@@ -162,6 +163,8 @@ class TesseractService {
 			$content = $this->ocrFile($file);
 		} catch (Exception $e) {
 			return;
+		} catch (Throwable $e) {
+			return;
 		}
 
 		$document->setContent(base64_encode($content), IIndexDocument::ENCODED_BASE64);
@@ -229,7 +232,6 @@ class TesseractService {
 			return true;
 		}
 
-
 		$this->miscService->log("looks like we're working on a PDF file", 0);
 
 		try {
@@ -264,6 +266,8 @@ class TesseractService {
 				$content .= $this->ocrFileFromPath($tmpPath);
 			} catch (PageDoesNotExist $e) {
 			}
+
+			fclose($tmpFile);
 		}
 
 		$this->miscService->log(
@@ -301,6 +305,7 @@ class TesseractService {
 	 */
 	private function getAbsolutePath(File $file): string {
 		$view = new View('');
+
 		return $view->getLocalFile($file->getPath());
 	}
 
