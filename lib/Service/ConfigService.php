@@ -32,8 +32,8 @@ namespace OCA\Files_FullTextSearch_Tesseract\Service;
 
 
 use OCA\Files_FullTextSearch_Tesseract\AppInfo\Application;
+use OCP\EventDispatcher\GenericEvent;
 use OCP\IConfig;
-use Symfony\Component\EventDispatcher\GenericEvent;
 
 
 /**

@@ -33,6 +33,7 @@ namespace OCA\Files_FullTextSearch_Tesseract\Service;
 
 use Exception;
 use OC\Files\View;
+use OCP\EventDispatcher\GenericEvent;
 use OCP\Files\File;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
@@ -41,7 +42,6 @@ use OCP\FullTextSearch\Model\IIndexDocument;
 use OCP\FullTextSearch\Model\ISearchRequest;
 use Spatie\PdfToImage\Exceptions\PageDoesNotExist;
 use Spatie\PdfToImage\Pdf;
-use Symfony\Component\EventDispatcher\GenericEvent;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use Throwable;
 

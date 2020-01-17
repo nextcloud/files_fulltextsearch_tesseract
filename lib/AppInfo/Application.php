@@ -35,7 +35,7 @@ use OCA\Files_FullTextSearch_Tesseract\Service\ConfigService;
 use OCA\Files_FullTextSearch_Tesseract\Service\TesseractService;
 use OCP\AppFramework\App;
 use OCP\AppFramework\QueryException;
-use Symfony\Component\EventDispatcher\GenericEvent;
+use OCP\EventDispatcher\GenericEvent;
 
 
 /**

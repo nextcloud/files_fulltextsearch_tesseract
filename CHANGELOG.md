@@ -1,6 +1,11 @@
 # Changelog
 
 
+### 1.4.0 (nc18)
+
+- compat nc18
+
+
 ### 1.3.2
 
 - more logs
