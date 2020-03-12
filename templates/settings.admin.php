@@ -87,6 +87,17 @@ Util::addScript(Application::APP_NAME, 'admin');
 			</div>
 		</div>
 
+		<div class="div-table-row tesseract_ocr_enabled">
+			<div class="div-table-col div-table-col-left">
+				<span class="leftcol">Limit PDF pages</span>
+				<br/>
+				<em>limit the OCR of PDF to the first <i>n</i> pages</em>
+			</div>
+			<div class="div-table-col">
+				<input type="text" class="big" id="tesseract_pdf_limit" value=""/>
+			</div>
+		</div>
+
 	</div>
 
 

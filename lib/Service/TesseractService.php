@@ -246,6 +246,12 @@ class TesseractService {
 		$content = '';
 		$pages = $pdf->getNumberOfPages();
 		$this->miscService->log('PDF contains ' . $pages . ' page(s)', 0);
+
+		$limit = (int)$this->configService->getAppValue(ConfigService::TESSERACT_PDF_LIMIT);
+		$pages = ($limit > 0 && $pages > $limit) ? $limit : $pages;
+		$this->miscService->log('App will now ocr ' . $pages . ' page(s)', 0);
+
+
 		for ($i = 1; $i <= $pages; $i++) {
 			$this->miscService->log('Creating a temp image file for page #' . $i, 0);
 

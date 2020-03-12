@@ -35,6 +35,7 @@ var fts_tesseract_elements = {
 	tesseract_psm: null,
 	tesseract_lang: null,
 	tesseract_pdf: null,
+	tesseract_pdf_limit: null,
 
 	init: function () {
 		fts_tesseract_elements.tesseract_div = $('#files_ocr-tesseract');
@@ -42,11 +43,13 @@ var fts_tesseract_elements = {
 		fts_tesseract_elements.tesseract_lang = $('#tesseract_lang');
 		fts_tesseract_elements.tesseract_ocr = $('#tesseract_ocr');
 		fts_tesseract_elements.tesseract_pdf = $('#tesseract_pdf');
+		fts_tesseract_elements.tesseract_pdf_limit = $('#tesseract_pdf_limit');
 
 		fts_tesseract_elements.tesseract_ocr.on('change', fts_tesseract_elements.updateSettings);
 		fts_tesseract_elements.tesseract_psm.on('change', fts_tesseract_elements.updateSettings);
 		fts_tesseract_elements.tesseract_lang.on('change', fts_tesseract_elements.updateSettings);
 		fts_tesseract_elements.tesseract_pdf.on('change', fts_tesseract_elements.updateSettings);
+		fts_tesseract_elements.tesseract_pdf_limit.on('change', fts_tesseract_elements.updateSettings);
 	},
 
 
