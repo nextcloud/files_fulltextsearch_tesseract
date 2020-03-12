@@ -9,7 +9,11 @@ OCR your documents before index
 
 - copy language files into /usr/share/tessdata/ (or /usr/share/tesseract-ocr/tessdata/, depends on our distribution)
 
-
 - configure this app in the Full text search Admin panel
 
 - report bugs
+
+
+### more
+
+devblog about PDF and OCR: https://daita.github.io/files-fulltextsearch-tesseract-ocr-pdf/
