@@ -50,6 +50,7 @@ var fts_tesseract_settings = {
 		fts_tesseract_elements.tesseract_psm.val(result.tesseract_psm);
 		fts_tesseract_elements.tesseract_lang.val(result.tesseract_lang);
 		fts_tesseract_elements.tesseract_pdf.prop('checked', (result.tesseract_pdf === '1'));
+		fts_tesseract_elements.tesseract_pdf_limit.val(result.tesseract_pdf_limit);
 
 		fts_admin_settings.tagSettingsAsSaved(fts_tesseract_elements.tesseract_div);
 
@@ -71,7 +72,8 @@ var fts_tesseract_settings = {
 			tesseract_enabled: (fts_tesseract_elements.tesseract_ocr.is(':checked')) ? 1 : 0,
 			tesseract_psm: fts_tesseract_elements.tesseract_psm.val(),
 			tesseract_lang: fts_tesseract_elements.tesseract_lang.val(),
-			tesseract_pdf: (fts_tesseract_elements.tesseract_pdf.is(':checked')) ? 1 : 0
+			tesseract_pdf: (fts_tesseract_elements.tesseract_pdf.is(':checked')) ? 1 : 0,
+			tesseract_pdf_limit: fts_tesseract_elements.tesseract_pdf_limit.val()
 		};
 
 		$.ajax({
@@ -83,7 +85,6 @@ var fts_tesseract_settings = {
 		}).done(function (res) {
 			fts_tesseract_settings.updateSettingPage(res);
 		});
-
 	}
 
 
