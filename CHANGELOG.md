@@ -1,6 +1,11 @@
 # Changelog
 
 
+### 1.4.2
+
+- compat nc19
+
+
 ### 1.4.1
 
 - limit number of pages on PDF
