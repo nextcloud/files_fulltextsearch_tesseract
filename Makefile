@@ -8,7 +8,7 @@ sign_dir=$(build_dir)/sign
 package_name=$(app_name)
 cert_dir=$(HOME)/.nextcloud/certificates
 github_account=daita
-branch=stable20
+branch=master
 codecov_token_dir=$(HOME)/.nextcloud/codecov_token
 version+=20.0.0
 
@@ -55,7 +55,7 @@ appstore: composer clean
 	--exclude=/l10n/templates \
 	--exclude=/l10n/.tx \
 	--exclude=/tests \
-	--exclude=/.git \
+	--exclude=.git \
 	--exclude=/.github \
 	--exclude=/composer.json \
 	--exclude=/composer.lock \
