@@ -55,7 +55,7 @@ appstore: composer clean
 	--exclude=/l10n/templates \
 	--exclude=/l10n/.tx \
 	--exclude=/tests \
-	--exclude=/.git \
+	--exclude=.git \
 	--exclude=/.github \
 	--exclude=/composer.json \
 	--exclude=/composer.lock \
