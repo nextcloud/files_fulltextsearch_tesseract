@@ -1,6 +1,12 @@
 # Changelog
 
 
+### 20.0.0
+
+- compat nc20
+- cleaning code
+
+
 ### 1.4.2
 
 - compat nc19

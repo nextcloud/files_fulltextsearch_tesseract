@@ -34,7 +34,6 @@ namespace OCA\Files_FullTextSearch_Tesseract\Settings;
 use Exception;
 use OCA\Files_FullTextSearch_Tesseract\AppInfo\Application;
 use OCA\Files_FullTextSearch_Tesseract\Service\ConfigService;
-use OCA\Files_FullTextSearch_Tesseract\Service\MiscService;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IL10N;
 use OCP\IURLGenerator;
@@ -58,24 +57,16 @@ class Admin implements ISettings {
 	/** @var ConfigService */
 	private $configService;
 
-	/** @var MiscService */
-	private $miscService;
-
 
 	/**
 	 * @param IL10N $l10n
 	 * @param IURLGenerator $urlGenerator
 	 * @param ConfigService $configService
-	 * @param MiscService $miscService
 	 */
-	public function __construct(
-		IL10N $l10n, IURLGenerator $urlGenerator, ConfigService $configService,
-		MiscService $miscService
-	) {
+	public function __construct(IL10N $l10n, IURLGenerator $urlGenerator, ConfigService $configService) {
 		$this->l10n = $l10n;
 		$this->urlGenerator = $urlGenerator;
 		$this->configService = $configService;
-		$this->miscService = $miscService;
 	}
 
 

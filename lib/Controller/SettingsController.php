@@ -33,7 +33,6 @@ namespace OCA\Files_FullTextSearch_Tesseract\Controller;
 
 use OCA\Files_FullTextSearch_Tesseract\AppInfo\Application;
 use OCA\Files_FullTextSearch_Tesseract\Service\ConfigService;
-use OCA\Files_FullTextSearch_Tesseract\Service\MiscService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
@@ -51,23 +50,16 @@ class SettingsController extends Controller {
 	/** @var ConfigService */
 	private $configService;
 
-	/** @var MiscService */
-	private $miscService;
-
 
 	/**
 	 * SettingsController constructor.
 	 *
 	 * @param IRequest $request
 	 * @param ConfigService $configService
-	 * @param MiscService $miscService
 	 */
-	public function __construct(
-		IRequest $request, ConfigService $configService, MiscService $miscService
-	) {
+	public function __construct(IRequest $request, ConfigService $configService) {
 		parent::__construct(Application::APP_NAME, $request);
 		$this->configService = $configService;
-		$this->miscService = $miscService;
 	}
 
 

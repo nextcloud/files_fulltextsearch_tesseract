@@ -4,8 +4,49 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fca498052306e6cd5c7ca896c0da12d4",
+    "content-hash": "6fe8bcf7bc80f5ae88c7cd494e55cba7",
     "packages": [
+        {
+            "name": "daita/my-small-php-tools",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/daita/my-small-php-tools.git",
+                "reference": "844b10da6abf50044ae9c40120cb5b927352bd95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/daita/my-small-php-tools/zipball/844b10da6abf50044ae9c40120cb5b927352bd95",
+                "reference": "844b10da6abf50044ae9c40120cb5b927352bd95",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "daita\\MySmallPhpTools\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "AGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Maxence Lange",
+                    "email": "maxence@artificial-owl.com"
+                }
+            ],
+            "description": "My small PHP Tools",
+            "support": {
+                "issues": "https://github.com/daita/my-small-php-tools/issues",
+                "source": "https://github.com/daita/my-small-php-tools/tree/master"
+            },
+            "time": "2020-12-02T14:37:02+00:00"
+        },
         {
             "name": "spatie/pdf-to-image",
             "version": "1.8.1",
@@ -54,28 +95,31 @@
                 "pdf-to-image",
                 "spatie"
             ],
+            "support": {
+                "issues": "https://github.com/spatie/pdf-to-image/issues",
+                "source": "https://github.com/spatie/pdf-to-image/tree/master"
+            },
             "time": "2018-07-02T09:30:32+00:00"
         },
         {
             "name": "thiagoalessio/tesseract_ocr",
-            "version": "2.4.0",
+            "version": "2.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thiagoalessio/tesseract-ocr-for-php.git",
-                "reference": "a8b7a9ba7919e683b9915668f3d0d67ebba6d266"
+                "reference": "82cfd7879d6158be3098714f1d5c860f344a0e29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thiagoalessio/tesseract-ocr-for-php/zipball/a8b7a9ba7919e683b9915668f3d0d67ebba6d266",
-                "reference": "a8b7a9ba7919e683b9915668f3d0d67ebba6d266",
+                "url": "https://api.github.com/repos/thiagoalessio/tesseract-ocr-for-php/zipball/82cfd7879d6158be3098714f1d5c860f344a0e29",
+                "reference": "82cfd7879d6158be3098714f1d5c860f344a0e29",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0"
+                "php": "^5.3 || ^7.0 || ^8.0"
             },
             "require-dev": {
-                "codacy/coverage": "dev-master",
-                "phpunit/php-code-coverage": "^4.0.8"
+                "phpunit/php-code-coverage": "^2.2.4 || ^9.0.0"
             },
             "type": "library",
             "autoload": {
@@ -99,16 +143,23 @@
                 "Tesseract",
                 "text recognition"
             ],
-            "time": "2018-05-11T14:22:47+00:00"
+            "support": {
+                "irc": "irc://irc.freenode.net/tesseract-ocr-for-php",
+                "issues": "https://github.com/thiagoalessio/tesseract-ocr-for-php/issues",
+                "source": "https://github.com/thiagoalessio/tesseract-ocr-for-php"
+            },
+            "time": "2020-12-07T18:48:58+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "daita/my-small-php-tools": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

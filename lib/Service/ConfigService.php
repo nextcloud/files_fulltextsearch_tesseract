@@ -62,24 +62,14 @@ class ConfigService {
 	/** @var IConfig */
 	private $config;
 
-	/** @var string */
-	private $userId;
-
-	/** @var MiscService */
-	private $miscService;
-
 
 	/**
 	 * ConfigService constructor.
 	 *
 	 * @param IConfig $config
-	 * @param string $userId
-	 * @param MiscService $miscService
 	 */
-	public function __construct(IConfig $config, $userId, MiscService $miscService) {
+	public function __construct(IConfig $config) {
 		$this->config = $config;
-		$this->userId = $userId;
-		$this->miscService = $miscService;
 	}
 
 

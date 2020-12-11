@@ -31,11 +31,18 @@ declare(strict_types=1);
 namespace OCA\Files_FullTextSearch_Tesseract\AppInfo;
 
 
+use OCA\Files_FullTextSearch_Tesseract\Listeners\GenericListener;
 use OCA\Files_FullTextSearch_Tesseract\Service\ConfigService;
 use OCA\Files_FullTextSearch_Tesseract\Service\TesseractService;
 use OCP\AppFramework\App;
+use OCP\AppFramework\Bootstrap\IBootContext;
+use OCP\AppFramework\Bootstrap\IBootstrap;
+use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\QueryException;
 use OCP\EventDispatcher\GenericEvent;
+
+
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 
 /**
@@ -43,7 +50,7 @@ use OCP\EventDispatcher\GenericEvent;
  *
  * @package OCA\Files_FullTextSearch_Tesseract\AppInfo
  */
-class Application extends App {
+class Application extends App implements IBootstrap {
 
 
 	const APP_NAME = 'files_fulltextsearch_tesseract';
@@ -69,28 +76,17 @@ class Application extends App {
 
 
 	/**
-	 *
+	 * @param IRegistrationContext $context
 	 */
-	public function registerFilesExtension() {
-		$eventDispatcher = \OC::$server->getEventDispatcher();
-		$eventDispatcher->addListener(
-			'\OCA\Files_FullTextSearch::onGetConfig',
-			function(GenericEvent $e) {
-				$this->configService->onGetConfig($e);
-			}
-		);
-		$eventDispatcher->addListener(
-			'\OCA\Files_FullTextSearch::onFileIndexing',
-			function(GenericEvent $e) {
-				$this->tesseractService->onFileIndexing($e);
-			}
-		);
-		$eventDispatcher->addListener(
-			'\OCA\Files_FullTextSearch::onSearchRequest',
-			function(GenericEvent $e) {
-				$this->tesseractService->onSearchRequest($e);
-			}
-		);
+	public function register(IRegistrationContext $context): void {
+		$context->registerEventListener(GenericEvent::class, GenericListener::class);
+	}
+
+
+	/**
+	 * @param IBootContext $context
+	 */
+	public function boot(IBootContext $context): void {
 	}
 
 }
