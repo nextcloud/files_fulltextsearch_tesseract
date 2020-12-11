@@ -8,7 +8,7 @@ sign_dir=$(build_dir)/sign
 package_name=$(app_name)
 cert_dir=$(HOME)/.nextcloud/certificates
 github_account=daita
-branch=master
+branch=stable18
 codecov_token_dir=$(HOME)/.nextcloud/codecov_token
 version+=1.4.2
 
