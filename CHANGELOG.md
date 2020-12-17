@@ -1,5 +1,9 @@
 # Changelog
 
+### 20.0.1
+
+- downgrading tesseract-ocr-php
+
 
 ### 20.0.0
 
