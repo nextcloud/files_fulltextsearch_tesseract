@@ -21,7 +21,7 @@
   },
   "require": {
     "daita/my-small-php-tools": "dev-master",
-    "thiagoalessio/tesseract_ocr": "2.9.5",
+    "thiagoalessio/tesseract_ocr": "2.4.0",
     "spatie/pdf-to-image": "2.1.0"
   }
 }

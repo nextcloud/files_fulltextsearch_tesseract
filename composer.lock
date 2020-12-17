@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fe8bcf7bc80f5ae88c7cd494e55cba7",
+    "content-hash": "4e59483c922bd15689965fc9e980b513",
     "packages": [
         {
             "name": "daita/my-small-php-tools",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/daita/my-small-php-tools.git",
-                "reference": "844b10da6abf50044ae9c40120cb5b927352bd95"
+                "reference": "424dd7fbae8bab8b0c2dea31351381cf065150ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/daita/my-small-php-tools/zipball/844b10da6abf50044ae9c40120cb5b927352bd95",
-                "reference": "844b10da6abf50044ae9c40120cb5b927352bd95",
+                "url": "https://api.github.com/repos/daita/my-small-php-tools/zipball/424dd7fbae8bab8b0c2dea31351381cf065150ef",
+                "reference": "424dd7fbae8bab8b0c2dea31351381cf065150ef",
                 "shasum": ""
             },
             "require": {
@@ -45,28 +45,28 @@
                 "issues": "https://github.com/daita/my-small-php-tools/issues",
                 "source": "https://github.com/daita/my-small-php-tools/tree/master"
             },
-            "time": "2020-12-02T14:37:02+00:00"
+            "time": "2020-12-14T10:28:12+00:00"
         },
         {
             "name": "spatie/pdf-to-image",
-            "version": "1.8.1",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/pdf-to-image.git",
-                "reference": "f33afc92ff7bff272fa6a9ba1cc335e96c57eb26"
+                "reference": "ea81a2d5f4fb0ca9f4c4fc0d4f8813135e993b2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/pdf-to-image/zipball/f33afc92ff7bff272fa6a9ba1cc335e96c57eb26",
-                "reference": "f33afc92ff7bff272fa6a9ba1cc335e96c57eb26",
+                "url": "https://api.github.com/repos/spatie/pdf-to-image/zipball/ea81a2d5f4fb0ca9f4c4fc0d4f8813135e993b2d",
+                "reference": "ea81a2d5f4fb0ca9f4c4fc0d4f8813135e993b2d",
                 "shasum": ""
             },
             "require": {
                 "ext-imagick": "*",
-                "php": "^7.0"
+                "php": "^7.2|^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.2"
+                "phpunit/phpunit": "^8.0|^9.0"
             },
             "type": "library",
             "autoload": {
@@ -97,29 +97,36 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/pdf-to-image/issues",
-                "source": "https://github.com/spatie/pdf-to-image/tree/master"
+                "source": "https://github.com/spatie/pdf-to-image/tree/2.1.0"
             },
-            "time": "2018-07-02T09:30:32+00:00"
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/spatie",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-11-12T11:27:19+00:00"
         },
         {
             "name": "thiagoalessio/tesseract_ocr",
-            "version": "2.9.5",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thiagoalessio/tesseract-ocr-for-php.git",
-                "reference": "82cfd7879d6158be3098714f1d5c860f344a0e29"
+                "reference": "a8b7a9ba7919e683b9915668f3d0d67ebba6d266"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thiagoalessio/tesseract-ocr-for-php/zipball/82cfd7879d6158be3098714f1d5c860f344a0e29",
-                "reference": "82cfd7879d6158be3098714f1d5c860f344a0e29",
+                "url": "https://api.github.com/repos/thiagoalessio/tesseract-ocr-for-php/zipball/a8b7a9ba7919e683b9915668f3d0d67ebba6d266",
+                "reference": "a8b7a9ba7919e683b9915668f3d0d67ebba6d266",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3 || ^7.0 || ^8.0"
+                "php": "^5.6 || ^7.0"
             },
             "require-dev": {
-                "phpunit/php-code-coverage": "^2.2.4 || ^9.0.0"
+                "codacy/coverage": "dev-master",
+                "phpunit/php-code-coverage": "^4.0.8"
             },
             "type": "library",
             "autoload": {
@@ -148,7 +155,7 @@
                 "issues": "https://github.com/thiagoalessio/tesseract-ocr-for-php/issues",
                 "source": "https://github.com/thiagoalessio/tesseract-ocr-for-php"
             },
-            "time": "2020-12-07T18:48:58+00:00"
+            "time": "2018-05-11T14:22:47+00:00"
         }
     ],
     "packages-dev": [],
