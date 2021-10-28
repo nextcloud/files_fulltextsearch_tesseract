@@ -7,7 +7,7 @@ source_dir=$(build_dir)/source
 sign_dir=$(build_dir)/sign
 package_name=$(app_name)
 cert_dir=$(HOME)/.nextcloud/certificates
-github_account=daita
+github_account=ArtificialOwl
 branch=master
 codecov_token_dir=$(HOME)/.nextcloud/codecov_token
 version+=22.0.0
@@ -21,14 +21,14 @@ github-release:
 		--user $(github_account) \
 		--repo $(app_name) \
 		--target $(branch) \
-		--tag v$(version) \
+		--tag $(version) \
 		--name "$(app_name) v$(version)"
 
 github-upload:
 	github-release upload \
 		--user $(github_account) \
 		--repo $(app_name) \
-		--tag v$(version) \
+		--tag $(version) \
 		--name "$(app_name)-$(version).tar.gz" \
 		--file $(build_dir)/$(app_name)-$(version).tar.gz
 

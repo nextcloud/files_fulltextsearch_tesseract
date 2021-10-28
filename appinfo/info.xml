@@ -19,12 +19,12 @@ Tesseract must be installed locally, and configured.
 	<author>Maxence Lange</author>
 	<namespace>Files_FullTextSearch_Tesseract</namespace>
 	<documentation>
-		<admin>https://github.com/daita/files_fulltextsearch_tesseract/wiki</admin>
+		<admin>https://github.com/ArtificialOwl/files_fulltextsearch_tesseract/wiki</admin>
 	</documentation>
 	<category>search</category>
-	<website>https://github.com/daita/files_fulltextsearch_tesseract</website>
-	<bugs>https://github.com/daita/files_fulltextsearch_tesseract/issues</bugs>
-	<repository>https://github.com/daita/files_fulltextsearch_tesseract.git</repository>
+	<website>https://github.com/ArtificialOwl/files_fulltextsearch_tesseract</website>
+	<bugs>https://github.com/ArtificialOwl/files_fulltextsearch_tesseract/issues</bugs>
+	<repository>https://github.com/ArtificialOwl/files_fulltextsearch_tesseract.git</repository>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/fulltextsearch/master/screenshots/0.3.0.png</screenshot>
 	<dependencies>
 		<nextcloud min-version="21" max-version="23"/>
