@@ -31,7 +31,7 @@ declare(strict_types=1);
 namespace OCA\Files_FullTextSearch_Tesseract\Service;
 
 
-use daita\MySmallPhpTools\Traits\Nextcloud\nc20\TNC20Logger;
+use ArtificialOwl\MySmallPhpTools\Traits\Nextcloud\nc22\TNC22Logger;
 use Exception;
 use OC\Files\View;
 use OCP\EventDispatcher\GenericEvent;
@@ -44,7 +44,6 @@ use OCP\FullTextSearch\Model\ISearchRequest;
 use Spatie\PdfToImage\Exceptions\PageDoesNotExist;
 use Spatie\PdfToImage\Pdf;
 use thiagoalessio\TesseractOCR\TesseractOCR;
-use thiagoalessio\TesseractOCR\TesseractOcrException;
 use Throwable;
 
 
@@ -56,7 +55,7 @@ use Throwable;
 class TesseractService {
 
 
-	use TNC20Logger;
+	use TNC22Logger;
 
 
 	/** @var ConfigService */
@@ -153,9 +152,9 @@ class TesseractService {
 				'extracting content using TesseractOCR',
 				[
 					'documentId' => $document->getId(),
-					'path'       => $document->getPath(),
-					'mime'       => $document->getMimetype(),
-					'extension'  => $extension
+					'path' => $document->getPath(),
+					'mime' => $document->getMimetype(),
+					'extension' => $extension
 				]
 			);
 
@@ -167,8 +166,6 @@ class TesseractService {
 			}
 
 			$content = $this->ocrFile($file);
-		} catch (Exception $e) {
-			return;
 		} catch (Throwable $e) {
 			return;
 		}
