@@ -27,7 +27,7 @@ Tesseract must be installed locally, and configured.
 	<repository>https://github.com/daita/files_fulltextsearch_tesseract.git</repository>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/fulltextsearch/master/screenshots/0.3.0.png</screenshot>
 	<dependencies>
-		<nextcloud min-version="22" max-version="23"/>
+		<nextcloud min-version="21" max-version="23"/>
 	</dependencies>
 
 	<settings>
