@@ -31,7 +31,6 @@ declare(strict_types=1);
 namespace OCA\Files_FullTextSearch_Tesseract\Service;
 
 
-use ArtificialOwl\MySmallPhpTools\Traits\Nextcloud\nc22\TNC22Logger;
 use Exception;
 use OC\Files\View;
 use OCP\EventDispatcher\GenericEvent;
@@ -41,6 +40,7 @@ use OCP\Files\NotFoundException;
 use OCP\Files_FullTextSearch\Model\AFilesDocument;
 use OCP\FullTextSearch\Model\IIndexDocument;
 use OCP\FullTextSearch\Model\ISearchRequest;
+use Psr\Log\LoggerInterface;
 use Spatie\PdfToImage\Exceptions\PageDoesNotExist;
 use Spatie\PdfToImage\Pdf;
 use thiagoalessio\TesseractOCR\TesseractOCR;
@@ -54,23 +54,10 @@ use Throwable;
  */
 class TesseractService {
 
-
-	use TNC22Logger;
-
-
-	/** @var ConfigService */
-	private $configService;
-
-
-	/**
-	 * TesseractService constructor.
-	 *
-	 * @param ConfigService $configService
-	 */
-	public function __construct(ConfigService $configService) {
-		$this->configService = $configService;
-
-		$this->setup('app', 'files_fulltextsearch_tesseract');
+	public function __construct(
+		private ConfigService $configService,
+		private LoggerInterface $logger
+	) {
 	}
 
 
@@ -106,7 +93,7 @@ class TesseractService {
 	/**
 	 * @param GenericEvent $e
 	 */
-	public function onFileIndexing(GenericEvent $e) {
+	public function onFileIndexing(GenericEvent $e): void {
 		/** @var Node $file */
 		$file = $e->getArgument('file');
 
@@ -135,8 +122,7 @@ class TesseractService {
 	 * @param AFilesDocument $document
 	 * @param File $file
 	 */
-	private function extractContentUsingTesseractOCR(AFilesDocument &$document, File $file) {
-
+	private function extractContentUsingTesseractOCR(AFilesDocument &$document, File $file): void {
 		try {
 			if ($this->configService->getAppValue(ConfigService::TESSERACT_ENABLED) !== '1') {
 				return;
@@ -148,7 +134,7 @@ class TesseractService {
 				return;
 			}
 
-			$this->debug(
+			$this->logger->debug(
 				'extracting content using TesseractOCR',
 				[
 					'documentId' => $document->getId(),
@@ -184,7 +170,7 @@ class TesseractService {
 		try {
 			$path = $this->getAbsolutePath($file);
 		} catch (Exception $e) {
-			$this->exception($e, self::$NOTICE);
+			$this->logger->notice('issue during ocrFile()', ['exception' => $e]);
 			throw new NotFoundException();
 		}
 
@@ -198,23 +184,28 @@ class TesseractService {
 	 * @return string
 	 */
 	private function ocrFileFromPath(string $path): string {
-		$this->debug('generating the TesseractOCR wrapper', ['path' => $path]);
+		$this->logger->debug('generating the TesseractOCR wrapper', ['path' => $path]);
 
 		$ocr = new TesseractOCR($path);
 		$ocr->psm($this->configService->getAppValue(ConfigService::TESSERACT_PSM));
 		$lang = explode(',', $this->configService->getAppValue(ConfigService::TESSERACT_LANG));
 		call_user_func_array([$ocr, 'lang'], array_map('trim', $lang));
-		$this->debug('running the OCR command', ['command' => $ocr->command]);
+		$this->logger->debug('running the OCR command', ['command' => $ocr->command]);
 
-		if ($this->configService->getLogLevel() > 0) {
-			$ocr->command .= ' 2> /dev/null';
-		}
+//		if ($this->configService->getLogLevel() > 0) {
+//			$ocr->command .= ' 2> /dev/null';
+//		}
 
 		try {
 			$result = $ocr->run();
-			$this->debug('OCR command ran smoothly');
+			$this->logger->debug('OCR command ran smoothly');
 		} catch (Exception $e) {
-			$this->exception($e, self::$NOTICE, ['path' => $path, 'cmd' => $ocr->command, 'lang' => $lang]);
+			$this->logger->notice('failed to OCR', [
+				'exception' => $e,
+				'path' => $path,
+				'cmd' => $ocr->command,
+				'lang' => $lang
+			]);
 			$result = '';
 		}
 
@@ -238,38 +229,38 @@ class TesseractService {
 			return true;
 		}
 
-		$this->debug('looks like we\'re working on a PDF file');
+		$this->logger->debug('looks like we\'re working on a PDF file');
 
 		try {
 			$path = $this->getAbsolutePath($file);
-			$this->debug('Absolute path', ['path' => $path]);
+			$this->logger->debug('Absolute path', ['path' => $path]);
 			$pdf = new Pdf($path);
 		} catch (Exception $e) {
-			$this->exception($e, self::$NOTICE, ['document' => $document]);
+			$this->logger->notice('failed to ocrPdf', ['exception' => $e, 'document' => $document]);
 			throw new NotFoundException();
 		}
 
 		$content = '';
 		$pages = $pdf->getNumberOfPages();
-		$this->debug('PDF contains ' . $pages . ' page(s)');
+		$this->logger->debug('PDF contains ' . $pages . ' page(s)');
 
 		$limit = (int)$this->configService->getAppValue(ConfigService::TESSERACT_PDF_LIMIT);
 		$pages = ($limit > 0 && $pages > $limit) ? $limit : $pages;
-		$this->debug('App will now ocr ' . $pages . ' page(s)');
+		$this->logger->debug('App will now ocr ' . $pages . ' page(s)');
 
 
 		for ($i = 1; $i <= $pages; $i++) {
-			$this->debug('Creating a temp image file for page #' . $i);
+			$this->logger->debug('Creating a temp image file for page #' . $i);
 
 			$tmpFile = tmpfile();
 			$tmpPath = stream_get_meta_data($tmpFile)['uri'];
-			$this->debug('temp image file: ' . $tmpPath . ' for page #' . $i);
+			$this->logger->debug('temp image file: ' . $tmpPath . ' for page #' . $i);
 
 			try {
-				$this->debug('opening the PDF at the page #' . $i);
+				$this->logger->debug('opening the PDF at the page #' . $i);
 				$pdf->setPage($i);
 
-				$this->debug('saving the current page as image', ['tmpPath' => $tmpPath]);
+				$this->logger->debug('saving the current page as image', ['tmpPath' => $tmpPath]);
 				$pdf->saveImage($tmpPath);
 
 				$content .= $this->ocrFileFromPath($tmpPath);
@@ -279,7 +270,7 @@ class TesseractService {
 			fclose($tmpFile);
 		}
 
-		$this->debug('Saving the data into the IndexDocument');
+		$this->logger->debug('Saving the data into the IndexDocument');
 		$document->addPart('ocr', $content);
 
 		return true;
@@ -315,6 +306,4 @@ class TesseractService {
 
 		return $view->getLocalFile($file->getPath());
 	}
-
-
 }

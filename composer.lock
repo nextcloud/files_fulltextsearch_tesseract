@@ -4,60 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f0c4dcbdbe78868320c69efbb038b0b",
+    "content-hash": "bd97cd5f1ff1cb9895d6fcccd5ed8a95",
     "packages": [
         {
-            "name": "artificial-owl/my-small-php-tools",
-            "version": "v22.1.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ArtificialOwl/my-small-php-tools.git",
-                "reference": "104c3fe1a2c6aa8030e7fcb8ea46566c3efce3c9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ArtificialOwl/my-small-php-tools/zipball/104c3fe1a2c6aa8030e7fcb8ea46566c3efce3c9",
-                "reference": "104c3fe1a2c6aa8030e7fcb8ea46566c3efce3c9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ArtificialOwl\\MySmallPhpTools\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "AGPL-3.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Maxence Lange",
-                    "email": "maxence@artificial-owl.com"
-                }
-            ],
-            "description": "My small PHP Tools",
-            "support": {
-                "issues": "https://github.com/ArtificialOwl/my-small-php-tools/issues",
-                "source": "https://github.com/ArtificialOwl/my-small-php-tools/tree/v22.1.7"
-            },
-            "time": "2021-07-26T12:32:23+00:00"
-        },
-        {
             "name": "spatie/pdf-to-image",
-            "version": "2.1.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/pdf-to-image.git",
-                "reference": "ea81a2d5f4fb0ca9f4c4fc0d4f8813135e993b2d"
+                "reference": "9b8d5bae5b77f6023e87b2401028e52b7addbd48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/pdf-to-image/zipball/ea81a2d5f4fb0ca9f4c4fc0d4f8813135e993b2d",
-                "reference": "ea81a2d5f4fb0ca9f4c4fc0d4f8813135e993b2d",
+                "url": "https://api.github.com/repos/spatie/pdf-to-image/zipball/9b8d5bae5b77f6023e87b2401028e52b7addbd48",
+                "reference": "9b8d5bae5b77f6023e87b2401028e52b7addbd48",
                 "shasum": ""
             },
             "require": {
@@ -65,7 +25,7 @@
                 "php": "^7.2|^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.0|^9.0"
+                "pestphp/pest": "^1.21"
             },
             "type": "library",
             "autoload": {
@@ -96,36 +56,35 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/pdf-to-image/issues",
-                "source": "https://github.com/spatie/pdf-to-image/tree/2.1.0"
+                "source": "https://github.com/spatie/pdf-to-image/tree/2.2.0"
             },
             "funding": [
                 {
-                    "url": "https://www.patreon.com/spatie",
-                    "type": "patreon"
+                    "url": "https://github.com/spatie",
+                    "type": "github"
                 }
             ],
-            "time": "2020-11-12T11:27:19+00:00"
+            "time": "2022-03-08T07:52:26+00:00"
         },
         {
             "name": "thiagoalessio/tesseract_ocr",
-            "version": "2.4.0",
+            "version": "2.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thiagoalessio/tesseract-ocr-for-php.git",
-                "reference": "a8b7a9ba7919e683b9915668f3d0d67ebba6d266"
+                "reference": "0f10bd7b02bdcba59c4fbd98fbd93a56f93b09b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thiagoalessio/tesseract-ocr-for-php/zipball/a8b7a9ba7919e683b9915668f3d0d67ebba6d266",
-                "reference": "a8b7a9ba7919e683b9915668f3d0d67ebba6d266",
+                "url": "https://api.github.com/repos/thiagoalessio/tesseract-ocr-for-php/zipball/0f10bd7b02bdcba59c4fbd98fbd93a56f93b09b7",
+                "reference": "0f10bd7b02bdcba59c4fbd98fbd93a56f93b09b7",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0"
+                "php": "^5.3 || ^7.0 || ^8.0"
             },
             "require-dev": {
-                "codacy/coverage": "dev-master",
-                "phpunit/php-code-coverage": "^4.0.8"
+                "phpunit/php-code-coverage": "^2.2.4 || ^9.0.0"
             },
             "type": "library",
             "autoload": {
@@ -154,7 +113,7 @@
                 "issues": "https://github.com/thiagoalessio/tesseract-ocr-for-php/issues",
                 "source": "https://github.com/thiagoalessio/tesseract-ocr-for-php"
             },
-            "time": "2018-05-11T14:22:47+00:00"
+            "time": "2021-06-04T21:21:33+00:00"
         }
     ],
     "packages-dev": [],
@@ -165,5 +124,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }
