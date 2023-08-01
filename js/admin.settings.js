@@ -51,6 +51,7 @@ var fts_tesseract_settings = {
 		fts_tesseract_elements.tesseract_lang.val(result.tesseract_lang);
 		fts_tesseract_elements.tesseract_pdf.prop('checked', (result.tesseract_pdf === '1'));
 		fts_tesseract_elements.tesseract_pdf_limit.val(result.tesseract_pdf_limit);
+		fts_tesseract_elements.tesseract_pdf_skip_text.prop('checked', (result.tesseract_pdf_skip_text === '1'));
 
 		fts_admin_settings.tagSettingsAsSaved(fts_tesseract_elements.tesseract_div);
 
@@ -73,7 +74,8 @@ var fts_tesseract_settings = {
 			tesseract_psm: fts_tesseract_elements.tesseract_psm.val(),
 			tesseract_lang: fts_tesseract_elements.tesseract_lang.val(),
 			tesseract_pdf: (fts_tesseract_elements.tesseract_pdf.is(':checked')) ? 1 : 0,
-			tesseract_pdf_limit: fts_tesseract_elements.tesseract_pdf_limit.val()
+			tesseract_pdf_limit: fts_tesseract_elements.tesseract_pdf_limit.val(),
+			tesseract_pdf_skip_text: (fts_tesseract_elements.tesseract_pdf_skip_text.is(':checked')) ? 1 : 0
 		};
 
 		$.ajax({
