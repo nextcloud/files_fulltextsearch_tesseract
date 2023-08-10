@@ -76,6 +76,18 @@ Util::addScript(Application::APP_NAME, 'admin');
 			</div>
 		</div>
 
+		
+		<div class="div-table-row tesseract_ocr_enabled">
+			<div class="div-table-col div-table-col-left">
+				<span class="leftcol">Tesseract timeout</span>
+				<br/>
+				<em>set timeout for tesseract process , some took to long</em>
+			</div>
+			<div class="div-table-col">
+				<input type="text" class="small" id="tesseract_timeout" value=""/>
+			</div>
+		</div>
+		
 		<div class="div-table-row tesseract_ocr_enabled">
 			<div class="div-table-col div-table-col-left">
 				<span class="leftcol">PDF</span>
