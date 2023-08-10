@@ -45,6 +45,7 @@ class ConfigService {
 
 
 	const TESSERACT_ENABLED = 'tesseract_enabled';
+	const TESSERACT_TIMEOUT = 'tesseract_timeout';
 	const TESSERACT_PSM = 'tesseract_psm';
 	const TESSERACT_LANG = 'tesseract_lang';
 	const TESSERACT_PDF = 'tesseract_pdf';
@@ -52,6 +53,7 @@ class ConfigService {
 
 	public $defaults = [
 		self::TESSERACT_ENABLED   => '0',
+		self::TESSERACT_TIMEOUT   => '300',
 		self::TESSERACT_PSM       => '4',
 		self::TESSERACT_LANG      => 'eng',
 		self::TESSERACT_PDF       => '0',
@@ -80,6 +82,7 @@ class ConfigService {
 			[
 				'version'   => $this->getAppValue('installed_version'),
 				'enabled'   => $this->getAppValue(self::TESSERACT_ENABLED),
+				'timeout'   => $this->getAppValue(self::TESSERACT_TIMEOUT),
 				'psm'       => $this->getAppValue(self::TESSERACT_PSM),
 				'lang'      => $this->getAppValue(self::TESSERACT_LANG),
 				'pdf'       => $this->getAppValue(self::TESSERACT_PDF),
