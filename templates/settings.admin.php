@@ -81,7 +81,7 @@ Util::addScript(Application::APP_NAME, 'admin');
 			<div class="div-table-col div-table-col-left">
 				<span class="leftcol">Tesseract timeout</span>
 				<br/>
-				<em>set timeout for tesseract process , some took to long</em>
+				<em>Sets a timeout in seconds for the Tesseract process. So that tesseract terminates before the database connection times out.</em>
 			</div>
 			<div class="div-table-col">
 				<input type="text" class="small" id="tesseract_timeout" value=""/>
