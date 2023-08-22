@@ -55,6 +55,17 @@ Util::addScript(Application::APP_NAME, 'admin');
 
 		<div class="div-table-row tesseract_ocr_enabled">
 			<div class="div-table-col div-table-col-left">
+				<span class="leftcol">Thread Limit</span>
+				<br/>
+				<em>set the maxmium number of threads</em>
+			</div>
+			<div class="div-table-col">
+				<input type="text" class="small" id="tesseract_thread_limit" value=""/>
+			</div>
+		</div>
+
+		<div class="div-table-row tesseract_ocr_enabled">
+			<div class="div-table-col div-table-col-left">
 				<span class="leftcol">Page Segmentation Method</span>
 				<br/>
 				<em><a href="https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality#page-segmentation-method">link
