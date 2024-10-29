@@ -3,6 +3,9 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 # files_fulltextsearch_tesseract
+
+[![REUSE status](https://api.reuse.software/badge/github.com/nextcloud/files_fulltextsearch_tesseract)](https://api.reuse.software/info/github.com/nextcloud/files_fulltextsearch_tesseract)
+
 OCR your documents before index
 
 ### Installation / Setup
