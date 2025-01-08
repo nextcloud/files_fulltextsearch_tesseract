@@ -165,6 +165,7 @@ class TesseractService {
 		$this->logger->debug('generating the TesseractOCR wrapper', ['path' => $path]);
 
 		$ocr = new TesseractOCR($path);
+		$ocr->threadLimit($this->configService->getAppValue(ConfigService::TESSERACT_THREAD_LIMIT));
 		$ocr->psm($this->configService->getAppValue(ConfigService::TESSERACT_PSM));
 		$lang = explode(',', $this->configService->getAppValue(ConfigService::TESSERACT_LANG));
 		call_user_func_array([$ocr, 'lang'], array_map('trim', $lang));
