@@ -76,6 +76,17 @@ Util::addScript(Application::APP_NAME, 'admin');
 			</div>
 		</div>
 
+		<div class="div-table-row tesseract_ocr_enabled">
+			<div class="div-table-col div-table-col-left">
+				<span class="leftcol">Skip OCR on PDF with text</span>
+				<br/>
+				<em>Only OCR PDF files without text (e.g. scans). Use the embedded text otherwise. pdftotext must be installed.</em>
+			</div>
+			<div class="div-table-col">
+				<input type="checkbox" id="tesseract_pdf_skip_text" value="1"/>
+			</div>
+		</div>
+
 	</div>
 
 

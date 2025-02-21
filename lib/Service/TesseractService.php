@@ -20,9 +20,11 @@ use OCP\FullTextSearch\Model\IIndexDocument;
 use OCP\FullTextSearch\Model\ISearchRequest;
 use Psr\Log\LoggerInterface;
 use Spatie\PdfToImage\Exceptions\PageDoesNotExist;
-use Spatie\PdfToImage\Pdf;
+use Spatie\PdfToImage\Pdf as PdfToImage_Pdf;
+use Spatie\PdfToText\Pdf as PdfToText_Pdf;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use Throwable;
+
 
 
 /**
@@ -192,6 +194,22 @@ class TesseractService {
 
 
 	/**
+	 * @param string $path
+	 *
+	 * @return bool
+	 */
+	private function pdfContainsText(string $path): bool {
+		try {
+			$text = (new PdfToText_Pdf())->setPdf($path)->text();
+			return $text !== '';
+		} catch (Exception $e) {
+			$this->logger->notice('extracting text from PDF failed', ['exception' => $e, 'path' => $path]);
+		}
+		return false;
+	}
+
+
+	/**
 	 * @param AFilesDocument $document
 	 * @param File $file
 	 *
@@ -212,7 +230,14 @@ class TesseractService {
 		try {
 			$path = $this->getAbsolutePath($file);
 			$this->logger->debug('Absolute path', ['path' => $path]);
-			$pdf = new Pdf($path);
+
+			if ($this->configService->optionIsSelected(ConfigService::TESSERACT_PDF_SKIP_TEXT)
+				&& $this->pdfContainsText($path)) {
+				$this->logger->debug('PDF file contains text, skipping OCR');
+				return true;
+			}
+
+			$pdf = new PdfToImage_Pdf($path);
 		} catch (Exception $e) {
 			$this->logger->notice('failed to ocrPdf', ['exception' => $e, 'document' => $document]);
 			throw new NotFoundException();
