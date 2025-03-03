@@ -4,28 +4,28 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd97cd5f1ff1cb9895d6fcccd5ed8a95",
+    "content-hash": "9a9b8a3f9010a1bb499b3f3c6e70032b",
     "packages": [
         {
             "name": "spatie/pdf-to-image",
-            "version": "2.2.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/pdf-to-image.git",
-                "reference": "9b8d5bae5b77f6023e87b2401028e52b7addbd48"
+                "reference": "acc31c5236180e475c09c1a5c68412876f0bd89a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/pdf-to-image/zipball/9b8d5bae5b77f6023e87b2401028e52b7addbd48",
-                "reference": "9b8d5bae5b77f6023e87b2401028e52b7addbd48",
+                "url": "https://api.github.com/repos/spatie/pdf-to-image/zipball/acc31c5236180e475c09c1a5c68412876f0bd89a",
+                "reference": "acc31c5236180e475c09c1a5c68412876f0bd89a",
                 "shasum": ""
             },
             "require": {
                 "ext-imagick": "*",
-                "php": "^7.2|^8.0"
+                "php": "^8.2"
             },
             "require-dev": {
-                "pestphp/pest": "^1.21"
+                "pestphp/pest": "^2.34"
             },
             "type": "library",
             "autoload": {
@@ -43,6 +43,12 @@
                     "email": "freek@spatie.be",
                     "homepage": "https://spatie.be",
                     "role": "Developer"
+                },
+                {
+                    "name": "Patrick Organ",
+                    "email": "patrick@permafrost.dev",
+                    "homepage": "https://permafrost.dev",
+                    "role": "Developer"
                 }
             ],
             "description": "Convert a pdf to an image",
@@ -56,28 +62,32 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/pdf-to-image/issues",
-                "source": "https://github.com/spatie/pdf-to-image/tree/2.2.0"
+                "source": "https://github.com/spatie/pdf-to-image/tree/3.1.0"
             },
             "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
                 {
                     "url": "https://github.com/spatie",
                     "type": "github"
                 }
             ],
-            "time": "2022-03-08T07:52:26+00:00"
+            "time": "2024-09-14T17:02:32+00:00"
         },
         {
             "name": "thiagoalessio/tesseract_ocr",
-            "version": "2.12.0",
+            "version": "2.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thiagoalessio/tesseract-ocr-for-php.git",
-                "reference": "0f10bd7b02bdcba59c4fbd98fbd93a56f93b09b7"
+                "reference": "232a8cb9d571992f9bd1e263f2f6909cf6c173a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thiagoalessio/tesseract-ocr-for-php/zipball/0f10bd7b02bdcba59c4fbd98fbd93a56f93b09b7",
-                "reference": "0f10bd7b02bdcba59c4fbd98fbd93a56f93b09b7",
+                "url": "https://api.github.com/repos/thiagoalessio/tesseract-ocr-for-php/zipball/232a8cb9d571992f9bd1e263f2f6909cf6c173a1",
+                "reference": "232a8cb9d571992f9bd1e263f2f6909cf6c173a1",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +123,7 @@
                 "issues": "https://github.com/thiagoalessio/tesseract-ocr-for-php/issues",
                 "source": "https://github.com/thiagoalessio/tesseract-ocr-for-php"
             },
-            "time": "2021-06-04T21:21:33+00:00"
+            "time": "2023-10-05T21:14:48+00:00"
         }
     ],
     "packages-dev": [],
@@ -124,5 +134,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
