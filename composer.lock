@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a9b8a3f9010a1bb499b3f3c6e70032b",
+    "content-hash": "90e50a549b7455ca21d78dbc0e42cbb6",
     "packages": [
         {
             "name": "spatie/pdf-to-image",
@@ -129,10 +129,13 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform": {},
+    "platform-dev": {},
+    "platform-overrides": {
+        "php": "8.2"
+    },
+    "plugin-api-version": "2.9.0"
 }
