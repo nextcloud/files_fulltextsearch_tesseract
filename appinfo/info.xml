@@ -18,7 +18,7 @@ which is a wrapper for the command line program [Tesseract OCR](https://github.c
 Tesseract must be installed locally, and configured.
 	]]>
 	</description>
-	<version>31.0.0</version>
+	<version>32.0.0</version>
 	<licence>agpl</licence>
 	<author>Maxence Lange</author>
 	<namespace>Files_FullTextSearch_Tesseract</namespace>
@@ -31,7 +31,7 @@ Tesseract must be installed locally, and configured.
 	<repository>https://github.com/nextcloud/files_fulltextsearch_tesseract.git</repository>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/fulltextsearch/master/screenshots/0.3.0.png</screenshot>
 	<dependencies>
-		<nextcloud min-version="31" max-version="32"/>
+		<nextcloud min-version="32" max-version="32"/>
 	</dependencies>
 
 	<settings>
