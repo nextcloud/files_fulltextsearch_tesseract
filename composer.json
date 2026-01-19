@@ -6,7 +6,10 @@
   "config": {
     "optimize-autoloader": true,
     "classmap-authoritative": true,
-    "autoloader-suffix": "Files_FullTextSearch_Tesseract"
+    "autoloader-suffix": "Files_FullTextSearch_Tesseract",
+    "platform": {
+      "php": "8.2"
+    }
   },
   "authors": [
     {
