@@ -12,6 +12,10 @@ OCR your documents before index
 
 - install Tesseract
 
+- install Ghostscript
+
+- install ImageMagick with PDF support (might be an additional package)
+
 - download language files from: https://github.com/tesseract-ocr/tessdata
 
 - copy language files into /usr/share/tessdata/ (or /usr/share/tesseract-ocr/tessdata/, depends on our distribution)
@@ -19,6 +23,12 @@ OCR your documents before index
 - configure this app in the Full text search Admin panel
 
 - report bugs
+
+
+### troubleshooting
+
+
+Verify ImageMagick PDF support with `identify -list format | grep PDF`.
 
 
 ### more
