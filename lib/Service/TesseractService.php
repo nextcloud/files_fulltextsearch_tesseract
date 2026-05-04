@@ -19,7 +19,6 @@ use OCP\Files_FullTextSearch\Model\AFilesDocument;
 use OCP\FullTextSearch\Model\IIndexDocument;
 use OCP\FullTextSearch\Model\ISearchRequest;
 use Psr\Log\LoggerInterface;
-use Spatie\PdfToImage\Exceptions\PageDoesNotExist;
 use Spatie\PdfToImage\Pdf;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use Throwable;
@@ -232,6 +231,7 @@ class TesseractService {
 
 			$tmpFile = tmpfile();
 			$tmpPath = stream_get_meta_data($tmpFile)['uri'];
+			$savedPaths = [];
 			$this->logger->debug('temp image file: ' . $tmpPath . ' for page #' . $i);
 
 			try {
@@ -239,13 +239,19 @@ class TesseractService {
 				$pdf->selectPage($i);
 
 				$this->logger->debug('saving the current page as image', ['tmpPath' => $tmpPath]);
-				$pdf->save($tmpPath);
+				$savedPaths = $pdf->save($tmpPath);
 
-				$content .= $this->ocrFileFromPath($tmpPath);
-			} catch (PageDoesNotExist $e) {
+				foreach ($savedPaths as $ocrPath) {
+					$content .= $this->ocrFileFromPath($ocrPath);
+				}
+			} catch (\Throwable $e) {
+				$this->logger->warning('failed to process page #' . $i, ['exception' => $e]);
 			}
 
 			fclose($tmpFile);
+			foreach ($savedPaths as $path) {
+				unlink($path);
+			}
 		}
 
 		$this->logger->debug('Saving the data into the IndexDocument');
