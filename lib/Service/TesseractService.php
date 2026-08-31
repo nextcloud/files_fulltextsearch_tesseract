@@ -219,7 +219,7 @@ class TesseractService {
 		}
 
 		$content = '';
-		$pages = $pdf->getNumberOfPages();
+		$pages = $pdf->pageCount();
 		$this->logger->debug('PDF contains ' . $pages . ' page(s)');
 
 		$limit = (int)$this->configService->getAppValue(ConfigService::TESSERACT_PDF_LIMIT);
@@ -236,12 +236,17 @@ class TesseractService {
 
 			try {
 				$this->logger->debug('opening the PDF at the page #' . $i);
-				$pdf->setPage($i);
+				$pdf->selectPage($i);
 
 				$this->logger->debug('saving the current page as image', ['tmpPath' => $tmpPath]);
-				$pdf->saveImage($tmpPath);
+				// Pdf::save() appends the output format extension when the
+				// target path has none, so OCR the paths it actually wrote.
+				$savedPages = $pdf->save($tmpPath);
 
-				$content .= $this->ocrFileFromPath($tmpPath);
+				foreach ($savedPages as $savedPage) {
+					$content .= $this->ocrFileFromPath($savedPage);
+					@unlink($savedPage);
+				}
 			} catch (PageDoesNotExist $e) {
 			}
 
